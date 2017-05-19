@@ -175,6 +175,8 @@ function addLine(string, line) {
 }
 
 
+
+
 function onEachFeature(feature, layer) {
 	//JSON.stringify(whatYouWant)
 
@@ -199,34 +201,24 @@ function onEachFeature(feature, layer) {
             popContent = addLine(popContent, '<img src="img/cake-with-2-candles-md.png">');
         }
     }
-    layer.bindPopup(popContent);
 
     let div_popup = L.DomUtil.create('div');
 
-            div_popup.innerHTML = '<p>' +
-              "<font face='georgia'>Nom du terrain : </font>" + prop.nom + "<br>" +
-              "<font face='georgia'>Terrain couvert : </font>" + ouiNon(prop.couvert) + "<br>" +
-              "<font face='georgia'>Type de pÃ©tanque pratiquÃ©e : </font>" + typePetanque(prop.type_petanque) + "<br>" +
-              "<font face='georgia'>CordonnÃ©es du terrain : </font>" + "<br>" + geo.coordinates[0] + " , " + geo.coordinates[1] + '</p>' +
-              '<a class="deleteBoul" href="#"><i class="icon ion-trash-a" style="font-size:24px"></i></a>';
-				
-			$('a.deleteBoul', div_popup).on('click', function() {
+            div_popup.innerHTML ='<a href="#" class="check"><img src="img/check.png"></a>';
 
-              $.post('delBoulodrome', {
-                  id: feature.id
-                },
-                function(data, textStatus, jqXHR) {
-                  if (data == 'ok') {
-                    console.log('deleted');
-                    marker.remove();
-                  }
-                });
+    div_popup.innerHTML = addLine(popContent,div_popup.innerHTML);
+    layer.bindPopup(div_popup);
 
-            });
-
-            marker.bindPopup(div_popup);
+    $('a.check', div_popup).on('click', function() {
+		console.log('test');
+		layer.setIcon(new L.AwesomeNumberMarkers({
+           	 		number: feature.properties.waypoint_index,
+            		markerColor: "green"
+       			}));
+	});
 
 }
+
 
 //Géolocalisation
 function currentLocation() {
