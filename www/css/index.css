@@ -1,0 +1,48 @@
+#map { 
+	height: 580px; 
+}
+
+#bandeau {
+	padding-bottom:0.5% !important;
+}
+
+#logo {
+	margin-right:5px;
+	margin-top:5px;
+}
+
+.margin {
+    margin-left :2% !important;
+	margin-right :2% !important;
+	margin-top : 1% !important;
+}
+
+#mapData {
+	text-align : center;
+}
+
+.iconWifi{
+	margin-top:1px;
+}
+	
+.iconGps {
+	margin-top:2px;
+}
+
+.iconDownload {
+	margin-top:1px;
+}
+
+.iconRefresh{
+	margin-top:2px;
+}
+
+.txtArea{
+	margin-left:3%;
+	margin-right:3%;
+	border-radius: 10px;
+}
+
+h2{
+	text-align:center;
+}

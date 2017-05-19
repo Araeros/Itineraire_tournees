@@ -1,0 +1,110 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-plugin-zip",
+        "scope": null,
+        "escapedName": "cordova-plugin-zip",
+        "name": "cordova-plugin-zip",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\cordova\\map\\node_modules"
+    ]
+  ],
+  "_from": "cordova-plugin-zip@latest",
+  "_id": "cordova-plugin-zip@3.1.0",
+  "_inCache": true,
+  "_location": "/cordova-plugin-zip",
+  "_nodeVersion": "0.10.29",
+  "_npmOperationalInternal": {
+    "host": "packages-5-east.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-zip-3.1.0.tgz_1456240954165_0.5940777787473053"
+  },
+  "_npmUser": {
+    "name": "agrieve",
+    "email": "agrieve@chromium.org"
+  },
+  "_npmVersion": "3.3.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-plugin-zip",
+    "scope": null,
+    "escapedName": "cordova-plugin-zip",
+    "name": "cordova-plugin-zip",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-zip/-/cordova-plugin-zip-3.1.0.tgz",
+  "_shasum": "176c8248ea20d39f1cf959ef5e6156acca96b217",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-zip",
+  "_where": "C:\\cordova\\map\\node_modules",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/MobileChromeApps/zip/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-unzip",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "dependencies": {},
+  "description": "Unzips zip files",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "176c8248ea20d39f1cf959ef5e6156acca96b217",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-zip/-/cordova-plugin-zip-3.1.0.tgz"
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.3.0"
+    }
+  ],
+  "gitHead": "977b57d2a5e4bf8d8b7671e5b498aa8ca098fbe4",
+  "homepage": "https://github.com/MobileChromeApps/zip",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "BSD",
+  "maintainers": [
+    {
+      "name": "agrieve",
+      "email": "agrieve@chromium.org"
+    },
+    {
+      "name": "mmocny",
+      "email": "mmocny@gmail.com"
+    },
+    {
+      "name": "clelland",
+      "email": "iclelland@google.com"
+    },
+    {
+      "name": "maxw",
+      "email": "maxw@chromium.org"
+    }
+  ],
+  "name": "cordova-plugin-zip",
+  "optionalDependencies": {},
+  "readme": "# cordova-plugin-zip\n\nA Cordova plugin to unzip files in Android and iOS.\n\n## Installation\n\n    cordova plugin add cordova-plugin-zip\n\n## Usage\n\n    zip.unzip(<source zip>, <destination dir>, <callback>, [<progressCallback>]);\n\nBoth source and destination arguments can be URLs obtained from the HTML File\ninterface or absolute paths to files on the device.\n\nThe callback argument will be executed when the unzip is complete, or when an\nerror occurs. It will be called with a single argument, which will be 0 on\nsuccess, or -1 on failure.\n\nThe progressCallback argument is optional and will be executed whenever a new ZipEntry\nhas been extracted. E.g.:\n\n    var progressCallback = function(progressEvent) {\n        $( \"#progressbar\" ).progressbar(\"value\", Math.round((progressEvent.loaded / progressEvent.total) * 100));\n    };\n\nThe values `loaded` and `total` are the number of compressed bytes processed and total. Total is the\nfile size of the zip file.\n\n## Release Notes\n\n### 3.1.0 (Feb 23, 2016)\n* Updated SSZipArchive (ios lib) to 1.1\n\n### 3.0.0 (May 1, 2015)\n* Updated SSZipArchive (ios lib) to 0.2.1\n* Update file plugin dependency to use npm version (cordova-plugin-file)\n\n### 2.1.0 (May 1, 2014)\n* Added progress events\n* Fix iOS path handling when given file: URLs as src/target\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MobileChromeApps/cordova-plugin-zip.git"
+  },
+  "scripts": {},
+  "version": "3.1.0"
+}

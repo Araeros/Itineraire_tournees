@@ -1,0 +1,52 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-android-permissions": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-zip": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        }
+    }
+}
