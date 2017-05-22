@@ -43,31 +43,31 @@ function initmap(){
 	
 	//Menu déroulant des tournées
 	$("#myTruck1").click(function (e) {
-		trajet = 1;
+		trajet = 0;
 		truck();
 	});
 	$("#myTruck2").click(function (e) {
-		trajet = 2;
+		trajet = 1;
 		truck2();
 	});
 	$("#myTruck3").click(function (e) {
-		trajet = 3;
+		trajet = 2;
 		truck();
 	});
 	$("#myTruck4").click(function (e) {
-		trajet = 4;
+		trajet = 3;
 		truck();
 	});
 	$("#myTruck5").click(function (e) {
-		trajet = 5;
+		trajet = 4;
 		truck();
 	});
 	$("#myTruck6").click(function (e) {
-		trajet = 6;
+		trajet = 5;
 		truck();
 	});
 	$("#myTruck7").click(function (e) {
-		trajet = 7;
+		trajet = 6;
 		truck();
 	});
 }	
@@ -85,7 +85,7 @@ function truck(){
 	}).addTo(map);
 
 	L.geoJSON(geojsonFeature,{	
-		onEachFeature:onEachFeature,
+		
 		pointToLayer: function (feature, latlng) {
 			return L.marker(latlng, {
 				icon: new L.AwesomeNumberMarkers({
@@ -93,7 +93,9 @@ function truck(){
             		markerColor: "darkred"
        			})
 			});
-		}
+		},
+		onEachFeature:onEachFeature
+
 	}).addTo(map);
 
 	console.log(jsonFeatureTrip0);
@@ -117,7 +119,6 @@ function truck2(){
 	}).addTo(map);
 
 	L.geoJSON(geojsonFeature1,{	
-		onEachFeature:onEachFeature,
 		pointToLayer: function (feature, latlng) {
 			return L.marker(latlng, {
 				icon: new L.AwesomeNumberMarkers({
@@ -125,7 +126,8 @@ function truck2(){
             		markerColor: "blue"
        			})
 			});
-		}
+		},
+		onEachFeature:onEachFeature,
 	}).addTo(map);
 
 	console.log(jsonFeatureTrip1);
@@ -138,11 +140,41 @@ function truck2(){
 
 //Affichage propriété au clic sur le marqueur
 function onEachFeature(feature, layer) {
-	layer.bindPopup(/*JSON.stringify(*/feature.properties.label/*)*/);
+	//JSON.stringify(whatYouWant)
+
+    //let feature = addresses.features[address_index];
+
+    let p = feature.properties;
+    let popContent = p.label + (p.special != undefined ? ', ' + p.special : '');
+
+    for (let b of p.beneficiaries) {
+        let line = b.name;
+        let isAnniversary = false;
+        if (b.birthdate != null) {
+       	    let now = new Date(Date.now());
+            let birthdate = new Date(b.birthdate);
+           	isAnniversary = now.getDate() == birthdate.getDate() && now.getMonth() == birthdate.getMonth();
+         	// l'age de la personne en millisecondes
+           	let age = now - birthdate;
+        	let years = age / 31557600000
+           	line += ', ' + Math.floor(years) + ' ans .';
+        }
+        line += ' - ' +b.address_additional + ' - ';
+        popContent = addLine(popContent, line);
+        if (isAnniversary) {
+            popContent = addLine(popContent, '<img src="img/cake-with-2-candles-md.png">');
+        }
+    }
+    layer.bindPopup(popContent);
+}
+
+function addLine(string, line) {
+    return string + '<br>' + line;
 }
 
 
-//Téléchargement
+
+//Téléchargement (Supprime le fichier si déjà existant et le remplace)
 function downloadFile(){
 	try{
 	document.addEventListener('deviceready', function () {
@@ -240,6 +272,31 @@ function initMapUnziped(){
 		}
 	}).addTo(map);
 }	
+
+
+// Ebauche d'une fonction de suppression d'un répertoire
+/*
+function del() {
+
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function (dir) {
+
+        dir.getDirectory("11", {create: false}, function (directoryEntry) {
+            directoryEntry.remove(function (directory) {
+            	console.log('Suppresion réussie.');
+                alert("Suppression réussie.");
+            }, function () {
+            	console.log("Echec suppresion : " + error.code)
+                alert("Echec de la suppresion : " + error.code);
+            }, function () {
+                alert("Le fichier n'existe pas.");
+            });
+        });
+
+
+    });
+
+}
+*/
 
 //Décompression(prend 5-10 minutes : zoom 18 -> Il y a des milliers de png à charger)
 function unZip() {

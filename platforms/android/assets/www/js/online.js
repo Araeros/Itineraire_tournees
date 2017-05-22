@@ -60,7 +60,6 @@ function truck(){
 
 
 	L.geoJSON(geojsonFeature,{	
-		onEachFeature:onEachFeature,
 		pointToLayer: function (feature, latlng) {
 			return L.marker(latlng, {
 				icon: new L.AwesomeNumberMarkers({
@@ -68,10 +67,10 @@ function truck(){
             		markerColor: "darkred"
        			})
 			});
-		}
+		},
+		onEachFeature:onEachFeature
 	}).addTo(map);
 
-	console.log(jsonFeatureTrip);
 	L.geoJSON(jsonFeatureTrip.geometry, {
 		style: {
 			"color": "#8b0000"
@@ -91,7 +90,6 @@ function truck2() {
 	}).addTo(map);
 
 	L.geoJSON(geojsonFeature1,{	
-		onEachFeature:onEachFeature,
 		pointToLayer: function (feature, latlng) {
 			return L.marker(latlng, {
 				icon: new L.AwesomeNumberMarkers({
@@ -99,10 +97,10 @@ function truck2() {
             		markerColor: "blue"
        			})
 			});
-		}
+		},
+		onEachFeature:onEachFeature
 	}).addTo(map);
 
-	console.log(jsonFeatureTrip1);
 	L.geoJSON(jsonFeatureTrip1.geometry, {
 		style: {
 			"color": "#91adf8"
@@ -172,10 +170,55 @@ function truck7() {
 
 
 //L.domUtils.create()
+function addLine(string, line) {
+    return string + '<br>' + line;
+}
+
+
+
 
 function onEachFeature(feature, layer) {
-	layer.bindPopup(/*JSON.stringify(*/feature.properties.label/*)*/);
+	//JSON.stringify(whatYouWant)
+
+    let p = feature.properties;
+    let popContent = p.label + (p.special != undefined ? ', ' + p.special : '');
+
+    for (let b of p.beneficiaries) {
+        let line = b.name;
+        let isAnniversary = false;
+        if (b.birthdate != null) {
+       	    let now = new Date(Date.now());
+            let birthdate = new Date(b.birthdate);
+           	isAnniversary = now.getDate() == birthdate.getDate() && now.getMonth() == birthdate.getMonth();
+         	// l'age de la personne en millisecondes
+           	let age = now - birthdate;
+        	let years = age / 31557600000
+           	line += ', ' + Math.floor(years) + ' ans .';
+        }
+        line += ' - ' +b.address_additional + ' - ';
+        popContent = addLine(popContent, line);
+        if (isAnniversary) {
+            popContent = addLine(popContent, '<img src="img/cake-with-2-candles-md.png">');
+        }
+    }
+
+    let div_popup = L.DomUtil.create('div');
+
+            div_popup.innerHTML ='<a href="#" class="check"><img src="img/check.png"></a>';
+
+    div_popup.innerHTML = addLine(popContent,div_popup.innerHTML);
+    layer.bindPopup(div_popup);
+
+    $('a.check', div_popup).on('click', function() {
+		console.log('test');
+		layer.setIcon(new L.AwesomeNumberMarkers({
+           	 		number: feature.properties.waypoint_index,
+            		markerColor: "green"
+       			}));
+	});
+
 }
+
 
 //Géolocalisation
 function currentLocation() {
