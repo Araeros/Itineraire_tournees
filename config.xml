@@ -35,6 +35,6 @@
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
     <plugin name="cordova-plugin-zip" spec="~3.1.0" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
-    <plugin name="cordova-plugin-file" spec="~4.3.3" />
     <plugin name="cordova-plugin-device" spec="~1.1.6" />
+    <plugin name="cordova-plugin-file" spec="~4.3.3" />
 </widget>

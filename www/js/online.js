@@ -16,32 +16,28 @@ function initmap(){
 
 	//Menu déroulant des tournées
 	$("#myTruck1").click(function (e) {
-		trajet = 1;
 		truck();
 	});
 	$("#myTruck2").click(function (e) {
-		trajet = 2;
 		truck2();
 	});
 	$("#myTruck3").click(function (e) {
-		trajet = 3;
 		truck3();
 	});
 	$("#myTruck4").click(function (e) {
-		trajet = 4;
 		truck4();
 	});
 	$("#myTruck5").click(function (e) {
-		trajet = 5;
 		truck5();
 	});
 	$("#myTruck6").click(function (e) {
-		trajet = 6;
 		truck6();
 	});
 	$("#myTruck7").click(function (e) {
-		trajet = 7;
 		truck7();
+	});
+	$("#reset").click(function (e) {
+		reset();
 	});
 }	
 
@@ -204,56 +200,57 @@ function onEachFeature(feature, layer) {
 
     let div_popup = L.DomUtil.create('div');
 
-            div_popup.innerHTML ='<a href="#" class="check"><img src="img/check.png"></a><a href="#" class="cancel"><img src="img/cancel.png"></a>';
+            div_popup.innerHTML ='<ul><li id="inline"><a href="#" class="check"><img src="img/check.png"></a></li>' +
+            					'<li id="inline"><a href="#" class="cancel"><img src="img/cancel.png"></a></li>' +
+            					'<li id="inline"><a href="#" class="read"><img src="img/truck.png"></a></li>' +
+            					'<li id="inline"><a href="#" class="form"><img src="img/form.png"></a></li></ul>';
 
     div_popup.innerHTML = addLine(popContent,div_popup.innerHTML);
     layer.bindPopup(div_popup);
-
+    //si marker coloré -> vert
     $('a.check', div_popup).on('click', function() {
 		layer.setIcon(new L.AwesomeNumberMarkers({
          	number: feature.properties.waypoint_index,
           	markerColor: "green"
        	}));
     });
-
+    //si marker vert -> coloré
 	$('a.cancel', div_popup).on('click',function () {
         layer.setIcon(new L.AwesomeNumberMarkers({
            	number: feature.properties.waypoint_index,
             markerColor: "darkred"
        	}));
     });
+	//Ecriture dans un fichier (res/log.txt)
+    $('a.form', div_popup).on('click',function () {
+    	Fichier = "log.txt";
+		Texte   = "Ceci est un test !"
+
+		fail          = function (e         )  { alert(JSON.stringify(e));  }
+		gotFileWriter = function (writer    )  {  writer.write(Email); };
+		gotFileEntry  = function (fileEntry )  { fileEntry.createWriter(gotFileWriter, fail); };
+		gotFS         = function (fileSystem)  { fileSystem.root.getFile(Fichier, {create: true, exclusive: false}, gotFileEntry, fail); };
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);   
+		alert(LocalFileSystem); 	
+    });
+    //Lecture dans un fichier
+    $('a.read', div_popup).on('click',function () {
+   		Fichier = "log.txt" ;
+		gotFileReader  = function (file    )    { 
+			reader=new FileReader(); reader.onloadend =function(e){  
+			//On récupère ici le contenu du fichier
+         	   ContenuDuFichier = e.target._result;
+
+       		};  reader.readAsText(file);  
+   		};
+		fail           = function (e        )  { alert(JSON.stringify(e)); }
+		gotFileEntry  = function (fileEntry )  { fileEntry.file(gotFileReader, fail); }
+		gotFS         = function (fileSystem)  { fileSystem.root.getFile(Fichier, null, gotFileEntry, fail); }
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+	});
 }
        
-/*
-       	if (checkAd == 1) {
-       		indexPoint = feature.properties.waypoint_index;
-   			L.geoJSON(geojsonFeature1,{	
-				pointToLayer: function (feature, latlng) {
-					return L.marker(latlng, {
-						icon: new L.AwesomeNumberMarkers({
-       	 					number: feature.properties.waypoint_index,
-           					markerColor: "green"
-   						})
-					});
-				},
-				onEachFeature:onEachFeature
-			}).addTo(map);
-			checkAd = 2;
-		}
-
-       	
-		if (feature.properties.waypoint_index>indexPoint) {
-			console.log('stop');
-			layer.setIcon(new L.AwesomeNumberMarkers({
-        		number: feature.properties.waypoint_index,
-        		markerColor: "darkred"
-       		}));
-		}
-*/       	
-
-
-
-//reset
+//réinitilisa la carte à son état d'origine
 function reset(){
 	map.off();
 	map.remove();

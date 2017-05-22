@@ -11,6 +11,8 @@
         <title>map - Offline</title>
         <script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/jquery/dist/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script type="text/javascript" src="js/sql.js"></script>
 		<script type="text/javascript" src="libs/leaflet/leaflet.js"></script>
 		<script type="text/javascript" src="libs/leaflet/leaflet_awesome_number_markers.js"></script>
 		<script type="text/javascript" src="js/materialize.min.js"></script>
@@ -28,19 +30,21 @@
 
     <body class="light-green" onload="initmap();">
     	<ul id="dropdown1" class="dropdown-content">
-  			<li><a id="myTruck1" href="#!">Tournée 1</a></li>
+  			<li><a id="myTruck1" href="#!">Tournée1</a></li>
   			<li class="divider"></li>
-  			<li><a id="myTruck2" href="#!">Tournée 2</a></li>
+  			<li><a id="myTruck2" href="#!">Tournée2</a></li>
   			<li class="divider"></li>
-  			<li><a id="myTruck3" href="#!">Tournée 3</a></li>
+  			<li><a id="myTruck3" href="#!">Tournée3</a></li>
   			<li class="divider"></li>
-  			<li><a id="myTruck4" href="#!">Tournée 4</a></li>
+  			<li><a id="myTruck4" href="#!">Tournée4</a></li>
   			<li class="divider"></li>
-  			<li><a id="myTruck5" href="#!">Tournée 5</a></li>
+  			<li><a id="myTruck5" href="#!">Tournée5</a></li>
   			<li class="divider"></li>
-  			<li><a id="myTruck6" href="#!">Tournée 6</a></li>
+  			<li><a id="myTruck6" href="#!">Tournée6</a></li>
   			<li class="divider"></li>
-  			<li><a id="myTruck7" href="#!">Tournée 7</a></li>
+  			<li><a id="myTruck7" href="#!">Tournée7</a></li>
+			<li class="divider"></li>
+  			<li><a id="reset" href="#!">Effacer trajet</a></li>
 		</ul>
         <div>
 			<nav>

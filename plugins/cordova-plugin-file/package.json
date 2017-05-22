@@ -10,7 +10,7 @@
         "spec": ">=4.3.3 <4.4.0",
         "type": "range"
       },
-      "C:\\cordova\\map\\node_modules"
+      "C:\\cordova\\Itineraire_tournees\\node_modules"
     ]
   ],
   "_from": "cordova-plugin-file@>=4.3.3 <4.4.0",
@@ -45,7 +45,7 @@
   "_shasum": "012e97aa1afb91f84916e6341b548366d23de9b9",
   "_shrinkwrap": null,
   "_spec": "cordova-plugin-file@~4.3.3",
-  "_where": "C:\\cordova\\map\\node_modules",
+  "_where": "C:\\cordova\\Itineraire_tournees\\node_modules",
   "author": {
     "name": "Apache Software Foundation"
   },

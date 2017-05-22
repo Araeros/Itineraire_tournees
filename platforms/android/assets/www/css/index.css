@@ -46,3 +46,13 @@
 h2{
 	text-align:center;
 }
+
+.form {
+	margin-right:5px;
+}
+
+#inline{
+	display: inline;
+	padding-left: 10px;
+	padding-right: 10px;
+}

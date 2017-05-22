@@ -70,6 +70,9 @@ function initmap(){
 		trajet = 6;
 		truck();
 	});
+	$("#reset").click(function (e) {
+		reset();
+	});
 }	
 
 //GeoJson Layers
@@ -369,8 +372,20 @@ function notifySuccess() {
 	});
 }
 
-//Géolocalisation
+//réinitilisa la carte à son état d'origine
+function reset(){
+	map.off();
+	map.remove();
+	
+	map = L.map('map').setView([43.924, 2.1554], 13);
+	layer = L.tileLayer('img/Tiles/{z}/{x}/{y}.png', {
+		minZoom: 13,
+		maxZoom: 13
+	}).addTo(map);
+}
 
+
+//Géolocalisation
 function currentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((function (position) {
@@ -382,6 +397,7 @@ function currentLocation() {
         alert("La géolocalisation n'est pas supportée.");
     }
 }
+
 
 
 //Les plugins de cordova supportent en général mal les nouvelles permissions d'android 6.0 (Runtime permissions) il faut aller les accepter manuellement dans les paramètres
