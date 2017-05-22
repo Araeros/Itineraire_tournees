@@ -8,7 +8,7 @@ function initmap(){
 		id: 'mapbox.streets',
 		accessToken: MAPBOX_ACCESS_TOKEN
 	}).addTo(map);
-	
+
 	//Géolocalisation
 	$("#myLocation").click(function (e) {
 		currentLocation();
@@ -204,19 +204,66 @@ function onEachFeature(feature, layer) {
 
     let div_popup = L.DomUtil.create('div');
 
-            div_popup.innerHTML ='<a href="#" class="check"><img src="img/check.png"></a>';
+            div_popup.innerHTML ='<a href="#" class="check"><img src="img/check.png"></a><a href="#" class="cancel"><img src="img/cancel.png"></a>';
 
     div_popup.innerHTML = addLine(popContent,div_popup.innerHTML);
     layer.bindPopup(div_popup);
 
     $('a.check', div_popup).on('click', function() {
-		console.log('test');
 		layer.setIcon(new L.AwesomeNumberMarkers({
-           	 		number: feature.properties.waypoint_index,
-            		markerColor: "green"
-       			}));
-	});
+         	number: feature.properties.waypoint_index,
+          	markerColor: "green"
+       	}));
+    });
 
+	$('a.cancel', div_popup).on('click',function () {
+        layer.setIcon(new L.AwesomeNumberMarkers({
+           	number: feature.properties.waypoint_index,
+            markerColor: "darkred"
+       	}));
+    });
+}
+       
+/*
+       	if (checkAd == 1) {
+       		indexPoint = feature.properties.waypoint_index;
+   			L.geoJSON(geojsonFeature1,{	
+				pointToLayer: function (feature, latlng) {
+					return L.marker(latlng, {
+						icon: new L.AwesomeNumberMarkers({
+       	 					number: feature.properties.waypoint_index,
+           					markerColor: "green"
+   						})
+					});
+				},
+				onEachFeature:onEachFeature
+			}).addTo(map);
+			checkAd = 2;
+		}
+
+       	
+		if (feature.properties.waypoint_index>indexPoint) {
+			console.log('stop');
+			layer.setIcon(new L.AwesomeNumberMarkers({
+        		number: feature.properties.waypoint_index,
+        		markerColor: "darkred"
+       		}));
+		}
+*/       	
+
+
+
+//reset
+function reset(){
+	map.off();
+	map.remove();
+	
+	map = L.map('map').setView([43.924, 2.1554], 13)
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+		maxZoom: 19,
+		id: 'mapbox.streets',
+		accessToken: MAPBOX_ACCESS_TOKEN
+	}).addTo(map);
 }
 
 

@@ -222,7 +222,6 @@ function initMapUnziped(){
 
 	map.off();
 	map.remove();
-	delete map;
 	
 	map = L.map('map').setView([43.924, 2.1554], 13);
 	
