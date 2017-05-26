@@ -1,5 +1,5 @@
 #map { 
-	height: 580px; 
+	height: 700px; 
 }
 
 #bandeau {
@@ -35,6 +35,10 @@
 
 .iconRefresh{
 	margin-top:2px;
+}
+
+.iconRead{
+	margin-top:1px;
 }
 
 .txtArea{

@@ -1,0 +1,2521 @@
+var geojsonFeature3 = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1499286,
+          43.9249975
+        ]
+      },
+      "properties": {
+        "label": "2 Avenue Colonel Teyssier",
+        "town": "81000 Albi",
+        "beneficiaries": [],
+        "waypoint_index": 0,
+        "special": "Centre Communal d'Action Sociale"
+      },
+      "id": 1
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1600381,
+          43.9263176
+        ]
+      },
+      "properties": {
+        "label": "68, Rue de Jarlard",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 4,
+            "name": "ALBARET Muguette",
+            "birthdate": "1934-09-25T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 78 93 18",
+              "06.26.29.37.05"
+            ]
+          }
+        ],
+        "waypoint_index": 63
+      },
+      "id": 5
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1546397,
+          43.9307386
+        ]
+      },
+      "properties": {
+        "label": "23, Rue de Berne Lagarde",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 5,
+            "name": "ALBET Jane",
+            "birthdate": "1922-01-17T23:00:00.000Z",
+            "address_additional": "1er étage ",
+            "phones": [
+              "05 63 47 03 83"
+            ]
+          }
+        ],
+        "waypoint_index": 54
+      },
+      "id": 6
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.151027,
+          43.9162637
+        ]
+      },
+      "properties": {
+        "label": "30, Rue Joliot Curie",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 10,
+            "name": "ALIBERT Lucien",
+            "birthdate": "1925-06-08T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 14 56"
+            ]
+          }
+        ],
+        "waypoint_index": 25
+      },
+      "id": 11
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1520339,
+          43.9242681
+        ]
+      },
+      "properties": {
+        "label": "24, Rue du Roc",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 15,
+            "name": "AMADIEU Roger",
+            "birthdate": null,
+            "address_additional": "Résidence les Emeraudes appt 213 4ème étage",
+            "phones": [
+              "05 65 35 56 52"
+            ]
+          }
+        ],
+        "waypoint_index": 35
+      },
+      "id": 16
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1531493,
+          43.9286005
+        ]
+      },
+      "properties": {
+        "label": "41, Boulevard Soult",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 26,
+            "name": "ARTAU Joel",
+            "birthdate": "1968-11-13T23:00:00.000Z",
+            "address_additional": "appt 301 ",
+            "phones": [
+              "06 72 52 13 78",
+              "mère"
+            ]
+          },
+          {
+            "id": 368,
+            "name": "JULIA Gabrielle",
+            "birthdate": "1934-03-22T23:00:00.000Z",
+            "address_additional": "appt 323 3ème étage",
+            "phones": [
+              "05-63-54-99-34"
+            ]
+          },
+          {
+            "id": 545,
+            "name": "RENAUD Dominique",
+            "birthdate": "1956-12-27T23:00:00.000Z",
+            "address_additional": "Appt 334 ",
+            "phones": [
+              "05 63 45 99 92"
+            ]
+          }
+        ],
+        "waypoint_index": 45
+      },
+      "id": 27
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1585498,
+          43.9237752
+        ]
+      },
+      "properties": {
+        "label": "9, Rue Louis Rascol",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 28,
+            "name": "ASSIER Philippine",
+            "birthdate": "1930-02-15T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05.63.54.63.23"
+            ]
+          }
+        ],
+        "waypoint_index": 70
+      },
+      "id": 29
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1562217,
+          43.9201534
+        ]
+      },
+      "properties": {
+        "label": "119, Rue Commandant Blanché",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 46,
+            "name": "BARDOU André",
+            "birthdate": "1925-07-13T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 45 31",
+              "06 79 78 86 03"
+            ]
+          },
+          {
+            "id": 47,
+            "name": "BARDOU Cécile",
+            "birthdate": "1925-03-02T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 45 31",
+              "06 79 78 86 03"
+            ]
+          }
+        ],
+        "waypoint_index": 76
+      },
+      "id": 46
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1519375,
+          43.929538
+        ]
+      },
+      "properties": {
+        "label": "11, Rue de la Croix Verte",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 53,
+            "name": "BARTHE Danielle",
+            "birthdate": "1945-02-09T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 52 91"
+            ]
+          }
+        ],
+        "waypoint_index": 42
+      },
+      "id": 52
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1529838,
+          43.9200003
+        ]
+      },
+      "properties": {
+        "label": "6, Rue Pierre Loti",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 55,
+            "name": "BASSAT Marie-Thérèse",
+            "birthdate": "1930-04-13T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 92 97"
+            ]
+          }
+        ],
+        "waypoint_index": 22
+      },
+      "id": 54
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1481427,
+          43.9279547
+        ]
+      },
+      "properties": {
+        "label": "47, Lices Georges Pompidou",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 57,
+            "name": "BASTIN Henri",
+            "birthdate": "1932-06-13T22:00:00.000Z",
+            "address_additional": "Résidence Pompidou ",
+            "phones": [
+              "05 63 54 98 71"
+            ]
+          }
+        ],
+        "waypoint_index": 6
+      },
+      "id": 56
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1523311,
+          43.9242043
+        ]
+      },
+      "properties": {
+        "label": "2, Rue du Roc",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 65,
+            "name": "BENTOSELA Isabel",
+            "birthdate": "1924-06-15T22:00:00.000Z",
+            "address_additional": "Appt 9 ",
+            "phones": [
+              "05 63 36 79 86"
+            ]
+          }
+        ],
+        "waypoint_index": 85
+      },
+      "id": 64
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1541507,
+          43.9214215
+        ]
+      },
+      "properties": {
+        "label": "7, Rue de la Rachoune",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 66,
+            "name": "BERGES Suzanne",
+            "birthdate": "1925-12-20T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 33 92 22 76"
+            ]
+          }
+        ],
+        "waypoint_index": 80
+      },
+      "id": 65
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1502745,
+          43.9112796
+        ]
+      },
+      "properties": {
+        "label": "20, Chemin de Lavazière",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 67,
+            "name": "BERGON Henri",
+            "birthdate": "1937-09-04T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 60 36 82",
+              "06 09 69 18 20"
+            ]
+          },
+          {
+            "id": 507,
+            "name": "BERGON Odette",
+            "birthdate": "1939-05-14T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 60 36 82"
+            ]
+          }
+        ],
+        "waypoint_index": 12
+      },
+      "id": 66
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1555505,
+          43.9219568
+        ]
+      },
+      "properties": {
+        "label": "22, Rue Fernand Audric",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 68,
+            "name": "BERLOU Georgette",
+            "birthdate": "1933-09-22T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 55 13 81",
+              "06 23 28 03 28"
+            ]
+          }
+        ],
+        "waypoint_index": 83
+      },
+      "id": 67
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1559497,
+          43.9173782
+        ]
+      },
+      "properties": {
+        "label": "1, Rue Hector Berlioz",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 73,
+            "name": "BESOMBES Michel",
+            "birthdate": "1930-08-14T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 17 58"
+            ]
+          }
+        ],
+        "waypoint_index": 18
+      },
+      "id": 71
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1575794,
+          43.9287805
+        ]
+      },
+      "properties": {
+        "label": "74, Rue Marcel Ricard",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 76,
+            "name": "BEZIN Jeanine",
+            "birthdate": "1936-10-31T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 19 27"
+            ]
+          }
+        ],
+        "waypoint_index": 58
+      },
+      "id": 74
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1591848,
+          43.9219242
+        ]
+      },
+      "properties": {
+        "label": "4, Rue Georges Bizet",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 77,
+            "name": "BIAU Alain",
+            "birthdate": "1946-03-14T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 44 50"
+            ]
+          }
+        ],
+        "waypoint_index": 77
+      },
+      "id": 75
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1597657,
+          43.9257179
+        ]
+      },
+      "properties": {
+        "label": "10, Avenue Edouard Herriot",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 79,
+            "name": "BILLOUX Josette",
+            "birthdate": "1933-04-13T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 77 93 17 10"
+            ]
+          }
+        ],
+        "waypoint_index": 64
+      },
+      "id": 77
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1477927,
+          43.9125161
+        ]
+      },
+      "properties": {
+        "label": "40, Rue du Verbial",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 89,
+            "name": "BONNAFOUS Yvette",
+            "birthdate": "1931-04-22T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 02 93",
+              "06 74 34 71 61"
+            ]
+          }
+        ],
+        "waypoint_index": 11
+      },
+      "id": 86
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1580893,
+          43.9257838
+        ]
+      },
+      "properties": {
+        "label": "57, Rue Plaine Saint-Martin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 108,
+            "name": "BOUSQUET Françoise",
+            "birthdate": "1950-05-05T22:00:00.000Z",
+            "address_additional": "Résidence Saint-Martin Appt 2",
+            "phones": [
+              "06 79 52 30 33"
+            ]
+          },
+          {
+            "id": 316,
+            "name": "GRIMAL Renée",
+            "birthdate": "1946-02-15T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 16 72"
+            ]
+          }
+        ],
+        "waypoint_index": 66
+      },
+      "id": 102
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1471818,
+          43.9170029
+        ]
+      },
+      "properties": {
+        "label": "43, Rue du Capitaine Malaval",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 115,
+            "name": "BOUYGUES Odette",
+            "birthdate": "1917-05-27T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 45 21 96",
+              "05 63 54 58 66"
+            ]
+          }
+        ],
+        "waypoint_index": 23
+      },
+      "id": 109
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1516253,
+          43.9277058
+        ]
+      },
+      "properties": {
+        "label": "10, Rue Lavedan",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 139,
+            "name": "CALVEL Odette",
+            "birthdate": "1920-06-06T22:00:00.000Z",
+            "address_additional": "Les Florentines 3ème étage , 1er gauche",
+            "phones": [
+              "05.63.54.03.30"
+            ]
+          }
+        ],
+        "waypoint_index": 34
+      },
+      "id": 131
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1591452,
+          43.9157068
+        ]
+      },
+      "properties": {
+        "label": "34, Chemin de Bellevue",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 145,
+            "name": "CAPELLE Georgette",
+            "birthdate": "1930-03-10T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 65 83"
+            ]
+          }
+        ],
+        "waypoint_index": 74
+      },
+      "id": 137
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.149965,
+          43.9167008
+        ]
+      },
+      "properties": {
+        "label": "28, Avenue Georges Clémenceau",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 147,
+            "name": "CARAUSSE Jean",
+            "birthdate": "1931-11-10T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 48 42"
+            ]
+          }
+        ],
+        "waypoint_index": 24
+      },
+      "id": 139
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1524791,
+          43.9247826
+        ]
+      },
+      "properties": {
+        "label": "12, Rue Pierre Gilles",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 151,
+            "name": "CARRARO Aldo",
+            "birthdate": "1927-07-30T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 80 44 43"
+            ]
+          }
+        ],
+        "waypoint_index": 1
+      },
+      "id": 143
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1507743,
+          43.9221073
+        ]
+      },
+      "properties": {
+        "label": "26, Rue Antoinette Salvan de Saliès",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 164,
+            "name": "CASTELBOU Marcelle",
+            "birthdate": "1934-05-23T22:00:00.000Z",
+            "address_additional": "1er étage ",
+            "phones": [
+              "05 63 46 09 01",
+              "05 63 54 86 15"
+            ]
+          },
+          {
+            "id": 410,
+            "name": "MAISONS Pierrette",
+            "birthdate": "1924-04-21T22:00:00.000Z",
+            "address_additional": "1er étage ",
+            "phones": [
+              "05 63 54 86 64"
+            ]
+          }
+        ],
+        "waypoint_index": 37
+      },
+      "id": 154
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1575394,
+          43.9188089
+        ]
+      },
+      "properties": {
+        "label": "129B, Rue Commandant Blanché",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 172,
+            "name": "CHABBERT Patrick",
+            "birthdate": "1959-11-19T23:00:00.000Z",
+            "address_additional": "Rés  Occitane appt 48 RDC ",
+            "phones": [
+              "06 83 45 16 46"
+            ]
+          },
+          {
+            "id": 279,
+            "name": "GABARRUS Anita",
+            "birthdate": "1920-03-07T23:00:00.000Z",
+            "address_additional": "appt 66 4ème étage",
+            "phones": [
+              "05.63.54.82.79"
+            ]
+          }
+        ],
+        "waypoint_index": 15
+      },
+      "id": 162
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1532549,
+          43.9201365
+        ]
+      },
+      "properties": {
+        "label": "34, Rue de la Rachoune",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 182,
+            "name": "CLUZEL  Suzanne",
+            "birthdate": "1920-05-11T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 48 44 55",
+              "05 63 54 28 87"
+            ]
+          }
+        ],
+        "waypoint_index": 20
+      },
+      "id": 171
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1500411,
+          43.9215219
+        ]
+      },
+      "properties": {
+        "label": "19, Boulevard du Lude",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 194,
+            "name": "COUDERC Denise",
+            "birthdate": "1936-12-26T23:00:00.000Z",
+            "address_additional": "Les jardins du Lude - Bât C appt 4 ",
+            "phones": [
+              "05 63 46 29 28"
+            ]
+          },
+          {
+            "id": 505,
+            "name": "POULAIN Jean-Pierre",
+            "birthdate": "1939-12-30T23:00:00.000Z",
+            "address_additional": "Bât C appt 13 ",
+            "phones": [
+              "06 84 10 05 87"
+            ]
+          }
+        ],
+        "waypoint_index": 31
+      },
+      "id": 182
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1614715,
+          43.9286586
+        ]
+      },
+      "properties": {
+        "label": "26, Rue Maréchal Lyautey",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 195,
+            "name": "COUFFINHAL Robert",
+            "birthdate": "1931-10-22T22:00:00.000Z",
+            "address_additional": " 4ème étage",
+            "phones": [
+              "05 63 60 83 52"
+            ]
+          },
+          {
+            "id": 282,
+            "name": "GALAUP Marguerite",
+            "birthdate": "1925-02-15T23:00:00.000Z",
+            "address_additional": "appt 7834 ",
+            "phones": [
+              "05 63 46 06 57",
+              "05 63 55 13 63"
+            ]
+          }
+        ],
+        "waypoint_index": 61
+      },
+      "id": 183
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1486894,
+          43.930101
+        ]
+      },
+      "properties": {
+        "label": "24, Rue de la République",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 197,
+            "name": "COUREAU Josiane",
+            "birthdate": "1961-02-28T23:00:00.000Z",
+            "address_additional": "Apt. 15 entre N° 22 et N°24",
+            "phones": [
+              "06 27 92 94 29",
+              "06 52 49 77 68"
+            ]
+          }
+        ],
+        "waypoint_index": 4
+      },
+      "id": 185
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1532842,
+          43.9290605
+        ]
+      },
+      "properties": {
+        "label": "27, Boulevard Soult",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 210,
+            "name": "DAURES Hélène",
+            "birthdate": "1926-08-12T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 05 61"
+            ]
+          }
+        ],
+        "waypoint_index": 44
+      },
+      "id": 196
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1584598,
+          43.9237973
+        ]
+      },
+      "properties": {
+        "label": "7, Rue Louis Rascol",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 226,
+            "name": "DESCOUS Maurice",
+            "birthdate": "1929-02-25T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 56 59"
+            ]
+          }
+        ],
+        "waypoint_index": 69
+      },
+      "id": 210
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1472063,
+          43.9263348
+        ]
+      },
+      "properties": {
+        "label": "4, Rue du Patus Crémat",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 228,
+            "name": "DESMET Jean-Pierre",
+            "birthdate": "1936-02-16T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 12 19 24 25",
+              "09 63 58 45 62"
+            ]
+          }
+        ],
+        "waypoint_index": 7
+      },
+      "id": 212
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1532359,
+          43.9194532
+        ]
+      },
+      "properties": {
+        "label": "42, Rue de la Rachoune",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 230,
+            "name": "DOUREL Henri",
+            "birthdate": "1926-09-24T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 80 47 81"
+            ]
+          }
+        ],
+        "waypoint_index": 19
+      },
+      "id": 214
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1484246,
+          43.9224953
+        ]
+      },
+      "properties": {
+        "label": "23, Boulevard Paul Bodin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 244,
+            "name": "DURAND - PERIE Nicole",
+            "birthdate": "1941-08-06T22:00:00.000Z",
+            "address_additional": "appt 3 ",
+            "phones": [
+              "05-63-60-45-99"
+            ]
+          }
+        ],
+        "waypoint_index": 28
+      },
+      "id": 226
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1545925,
+          43.92199
+        ]
+      },
+      "properties": {
+        "label": "45, Rue de Bitche",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 251,
+            "name": "SICARD Helene",
+            "birthdate": "1929-12-13T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 47 07 96"
+            ]
+          }
+        ],
+        "waypoint_index": 81
+      },
+      "id": 232
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1526808,
+          43.9237889
+        ]
+      },
+      "properties": {
+        "label": "16, Rue du Roc",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 254,
+            "name": "FABRE Marie-Thérèse",
+            "birthdate": "1926-08-18T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 45 27"
+            ]
+          }
+        ],
+        "waypoint_index": 84
+      },
+      "id": 235
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1571183,
+          43.9295628
+        ]
+      },
+      "properties": {
+        "label": "19, Boulevard Valmy",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 265,
+            "name": "FIEVET Raymonde",
+            "birthdate": "1932-01-08T23:00:00.000Z",
+            "address_additional": "résidence Valmy appt 3 ",
+            "phones": [
+              "05 63 76 94 58",
+              "06 82 45 24 49"
+            ]
+          },
+          {
+            "id": 373,
+            "name": "LACOUR Lucette",
+            "birthdate": "1920-05-11T22:00:00.000Z",
+            "address_additional": "appt 18 ",
+            "phones": [
+              "05 63 54 08 02"
+            ]
+          }
+        ],
+        "waypoint_index": 55
+      },
+      "id": 246
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1497581,
+          43.9220408
+        ]
+      },
+      "properties": {
+        "label": "5, Boulevard du Lude",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 266,
+            "name": "FLOTTARD Didier",
+            "birthdate": "1957-01-24T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 48 73 73",
+              "06 41 70 88 64"
+            ]
+          }
+        ],
+        "waypoint_index": 29
+      },
+      "id": 247
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1497246,
+          43.9219658
+        ]
+      },
+      "properties": {
+        "label": "10, Boulevard du Lude",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 267,
+            "name": "FORNER Dominique",
+            "birthdate": "1953-06-30T22:00:00.000Z",
+            "address_additional": "appt 105 ",
+            "phones": [
+              "06 36 82 81 37"
+            ]
+          }
+        ],
+        "waypoint_index": 30
+      },
+      "id": 248
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1559127,
+          43.9194474
+        ]
+      },
+      "properties": {
+        "label": "134, Rue Commandant Blanché",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 268,
+            "name": "FOURES Alida",
+            "birthdate": "1926-10-02T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 36 30"
+            ]
+          },
+          {
+            "id": 269,
+            "name": "FOURES Louis",
+            "birthdate": "1916-09-22T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 36 30"
+            ]
+          }
+        ],
+        "waypoint_index": 16
+      },
+      "id": 249
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1547996,
+          43.9315889
+        ]
+      },
+      "properties": {
+        "label": "6, Rue de la Fonderie",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 272,
+            "name": "FRAUCA Adelio",
+            "birthdate": "1933-02-13T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 47 00 37"
+            ]
+          }
+        ],
+        "waypoint_index": 53
+      },
+      "id": 252
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1594085,
+          43.9281347
+        ]
+      },
+      "properties": {
+        "label": "44, Rue Georges de Lapanouse",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 277,
+            "name": "FREZOULS Josette",
+            "birthdate": "1933-03-04T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 78 69"
+            ]
+          }
+        ],
+        "waypoint_index": 62
+      },
+      "id": 256
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1492998,
+          43.9264347
+        ]
+      },
+      "properties": {
+        "label": "49, Rue Séré de Rivières",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 285,
+            "name": "GALONNIER Michèle",
+            "birthdate": "1936-02-09T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 98 49"
+            ]
+          }
+        ],
+        "waypoint_index": 33
+      },
+      "id": 261
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1543062,
+          43.9204214
+        ]
+      },
+      "properties": {
+        "label": "33, Rue de la Rachoune",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 296,
+            "name": "GAU Simone",
+            "birthdate": "1920-10-04T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 42 30"
+            ]
+          }
+        ],
+        "waypoint_index": 21
+      },
+      "id": 269
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1547799,
+          43.9318512
+        ]
+      },
+      "properties": {
+        "label": "2, Rue de la Fonderie",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 298,
+            "name": "GAY Pierre",
+            "birthdate": "1951-07-12T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 22 76 02 96"
+            ]
+          }
+        ],
+        "waypoint_index": 52
+      },
+      "id": 271
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1567274,
+          43.9164381
+        ]
+      },
+      "properties": {
+        "label": "12, Rue Marc Antoine Charpentier",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 299,
+            "name": "GAYRARD Jacqueline",
+            "birthdate": "1926-05-09T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 28 96"
+            ]
+          }
+        ],
+        "waypoint_index": 14
+      },
+      "id": 272
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1442304,
+          43.9029507
+        ]
+      },
+      "properties": {
+        "label": "39, Cité de Ranteil",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 305,
+            "name": "GIMENEZ Jean-Bernard",
+            "birthdate": "1953-01-30T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 14 97"
+            ]
+          }
+        ],
+        "waypoint_index": 10
+      },
+      "id": 278
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1473211,
+          43.9276335
+        ]
+      },
+      "properties": {
+        "label": "4, Rue Timbal",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 306,
+            "name": "GIONDINI Bernard",
+            "birthdate": "1941-05-26T22:00:00.000Z",
+            "address_additional": "appt 4 ",
+            "phones": [
+              "05 63 45 27 91"
+            ]
+          }
+        ],
+        "waypoint_index": 5
+      },
+      "id": 279
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1524418,
+          43.924954
+        ]
+      },
+      "properties": {
+        "label": "3, Rue Pierre Gilles",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 310,
+            "name": "GOGUELY Monique",
+            "birthdate": "1937-11-23T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 15 68 37 98"
+            ]
+          }
+        ],
+        "waypoint_index": 2
+      },
+      "id": 283
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1538848,
+          43.9225682
+        ]
+      },
+      "properties": {
+        "label": "55, Rue Commandant Blanché",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 317,
+            "name": "GROSS Arlette",
+            "birthdate": "1926-03-16T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05.63.47.14.83"
+            ]
+          }
+        ],
+        "waypoint_index": 79
+      },
+      "id": 289
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1569642,
+          43.9175
+        ]
+      },
+      "properties": {
+        "label": "35, Rue Mozart",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 326,
+            "name": "GUILHAUMON Monique",
+            "birthdate": "1935-01-02T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 35 74"
+            ]
+          }
+        ],
+        "waypoint_index": 17
+      },
+      "id": 294
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1564337,
+          43.9231884
+        ]
+      },
+      "properties": {
+        "label": "3, Rue de Bitche",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 327,
+            "name": "GUITARD Claudy",
+            "birthdate": "1936-01-27T23:00:00.000Z",
+            "address_additional": " Bât B n°24 Résidence les Coralines",
+            "phones": [
+              "05 63 49 04 38"
+            ]
+          }
+        ],
+        "waypoint_index": 78
+      },
+      "id": 295
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1508016,
+          43.92743
+        ]
+      },
+      "properties": {
+        "label": "20, Rue Dominique de Florence",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 339,
+            "name": "HIBERT Madeleine",
+            "birthdate": "1931-03-20T23:00:00.000Z",
+            "address_additional": "appt 6 ",
+            "phones": [
+              "05 63 46 56 50",
+              "06 86 72 89 79"
+            ]
+          },
+          {
+            "id": 374,
+            "name": "LAFFON Odette",
+            "birthdate": "1919-12-18T23:00:00.000Z",
+            "address_additional": "appt 19 ",
+            "phones": [
+              "05 63 54 67 95"
+            ]
+          },
+          {
+            "id": 388,
+            "name": "LAVERGNE Roger",
+            "birthdate": "1934-03-18T23:00:00.000Z",
+            "address_additional": "1er étage ",
+            "phones": [
+              "05 63 54 29 67",
+              "05 63 54 98 52"
+            ]
+          },
+          {
+            "id": 497,
+            "name": "PISTRE Pierre-Alain",
+            "birthdate": "1981-05-01T22:00:00.000Z",
+            "address_additional": "Bât C appt 19 3ème étage",
+            "phones": [
+              "05 63 53 24 19",
+              "06 32 67 04 38"
+            ]
+          }
+        ],
+        "waypoint_index": 47
+      },
+      "id": 306
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.159534,
+          43.9242058
+        ]
+      },
+      "properties": {
+        "label": "106, Rue Plaine Saint-Martin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 344,
+            "name": "HUC Simone",
+            "birthdate": "1929-05-13T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 60 26 27"
+            ]
+          }
+        ],
+        "waypoint_index": 72
+      },
+      "id": 310
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1546299,
+          43.927989
+        ]
+      },
+      "properties": {
+        "label": "76, Boulevard Valmy",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 346,
+            "name": "HUGARY Pierre",
+            "birthdate": "1950-03-06T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 09 57"
+            ]
+          }
+        ],
+        "waypoint_index": 56
+      },
+      "id": 312
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1590697,
+          43.9237476
+        ]
+      },
+      "properties": {
+        "label": "11B, Rue Louis Rascol",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 353,
+            "name": "JAMBON Georges",
+            "birthdate": "1930-12-25T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 26 96"
+            ]
+          }
+        ],
+        "waypoint_index": 71
+      },
+      "id": 319
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1586812,
+          43.9254577
+        ]
+      },
+      "properties": {
+        "label": "11, Square Saint-Martin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 362,
+            "name": "JO Sylvanise",
+            "birthdate": "1926-01-18T23:00:00.000Z",
+            "address_additional": "603 Rez de Chaussée",
+            "phones": [
+              "05 63 47 69 81"
+            ]
+          }
+        ],
+        "waypoint_index": 67
+      },
+      "id": 327
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1574469,
+          43.9254864
+        ]
+      },
+      "properties": {
+        "label": "62, Rue Plaine Saint-Martin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 375,
+            "name": "LAFFONT Marie Thérèse",
+            "birthdate": "1940-05-16T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05-63-38-09-58"
+            ]
+          }
+        ],
+        "waypoint_index": 65
+      },
+      "id": 337
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.155204,
+          43.9218567
+        ]
+      },
+      "properties": {
+        "label": "20, Rue Fernand Audric",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 384,
+            "name": "LAUQUE Christian",
+            "birthdate": "1933-09-15T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 79 60",
+              "06 11 71 57 01"
+            ]
+          }
+        ],
+        "waypoint_index": 82
+      },
+      "id": 344
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1510364,
+          43.927689
+        ]
+      },
+      "properties": {
+        "label": "14, Rue Dominique de Florence",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 400,
+            "name": "LOPEZ Andres",
+            "birthdate": "1948-12-05T23:00:00.000Z",
+            "address_additional": "2ème étage ",
+            "phones": [
+              "05 63 79 50 76"
+            ]
+          }
+        ],
+        "waypoint_index": 46
+      },
+      "id": 357
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1513707,
+          43.9300022
+        ]
+      },
+      "properties": {
+        "label": "8, Rue de la République",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 411,
+            "name": "MALATERRE Colette",
+            "birthdate": "1929-12-25T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 47 13 25"
+            ]
+          }
+        ],
+        "waypoint_index": 3
+      },
+      "id": 365
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1506288,
+          43.922126
+        ]
+      },
+      "properties": {
+        "label": "24, Rue Antoinette Salvan de Saliès",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 425,
+            "name": "MARTY Jeanine",
+            "birthdate": "1928-08-08T22:00:00.000Z",
+            "address_additional": "Rés Bât C appt 7 ",
+            "phones": [
+              "05 63 47 02 98"
+            ]
+          },
+          {
+            "id": 642,
+            "name": "VA Raymond",
+            "birthdate": "1925-08-02T22:00:00.000Z",
+            "address_additional": "Bât C appt 1  ",
+            "phones": [
+              "05 63 46 21 75",
+              "05 63 49 97 69"
+            ]
+          }
+        ],
+        "waypoint_index": 39
+      },
+      "id": 377
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.136921,
+          43.9168498
+        ]
+      },
+      "properties": {
+        "label": "6, Rue Pierre Jamet",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 429,
+            "name": "MARTY Pierre",
+            "birthdate": "1938-12-22T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 16 90"
+            ]
+          }
+        ],
+        "waypoint_index": 8
+      },
+      "id": 381
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.142468,
+          43.9149099
+        ]
+      },
+      "properties": {
+        "label": "204, Avenue Gambetta",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 439,
+            "name": "MAURIES Marthe",
+            "birthdate": "1927-11-12T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 53 00 06",
+              "05 63 54 58 59"
+            ]
+          }
+        ],
+        "waypoint_index": 9
+      },
+      "id": 389
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1525409,
+          43.9228922
+        ]
+      },
+      "properties": {
+        "label": "36, Rue Commandant Blanché",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 441,
+            "name": "MAYNADIER Joël",
+            "birthdate": "1955-07-06T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 35 92"
+            ]
+          }
+        ],
+        "waypoint_index": 36
+      },
+      "id": 391
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1539992,
+          43.9260816
+        ]
+      },
+      "properties": {
+        "label": "103, Boulevard Soult",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 451,
+            "name": "MERVEILLEUX DU VIGNAUX Florence",
+            "birthdate": null,
+            "address_additional": "",
+            "phones": [
+              "05 63 60 26 69"
+            ]
+          }
+        ],
+        "waypoint_index": 50
+      },
+      "id": 399
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1544423,
+          43.9190466
+        ]
+      },
+      "properties": {
+        "label": "10, Avenue du Président Kennedy",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 455,
+            "name": "MIDOUX Robert",
+            "birthdate": "1933-07-20T22:00:00.000Z",
+            "address_additional": "Appt 44 ",
+            "phones": [
+              "05 63 38 99 42"
+            ]
+          }
+        ],
+        "waypoint_index": 75
+      },
+      "id": 402
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1537117,
+          43.9256021
+        ]
+      },
+      "properties": {
+        "label": "1, Rue des Jardins",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 456,
+            "name": "MIELLIN Monique",
+            "birthdate": "1947-04-02T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 29 26 52 63"
+            ]
+          }
+        ],
+        "waypoint_index": 49
+      },
+      "id": 403
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1523367,
+          43.9298821
+        ]
+      },
+      "properties": {
+        "label": "2, Rue de la République",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 464,
+            "name": "NALBERT Lucienne",
+            "birthdate": "1928-03-04T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 65 38"
+            ]
+          }
+        ],
+        "waypoint_index": 43
+      },
+      "id": 410
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1516831,
+          43.9261129
+        ]
+      },
+      "properties": {
+        "label": "10, Rue Laroche",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 470,
+            "name": "NOUVEL Geneviève",
+            "birthdate": "1926-07-07T22:00:00.000Z",
+            "address_additional": " 1er étage",
+            "phones": [
+              "05 63 54 12 78"
+            ]
+          }
+        ],
+        "waypoint_index": 48
+      },
+      "id": 416
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1608307,
+          43.9302293
+        ]
+      },
+      "properties": {
+        "label": "142B, Avenue Maréchal de Lattre de Tassigny",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 506,
+            "name": "POUSSOLES Guy",
+            "birthdate": "1936-03-03T23:00:00.000Z",
+            "address_additional": " 1er étage",
+            "phones": [
+              "05 63 47 51 74",
+              "07 68 35 64 12"
+            ]
+          }
+        ],
+        "waypoint_index": 60
+      },
+      "id": 444
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1557678,
+          43.9279062
+        ]
+      },
+      "properties": {
+        "label": "20, Rue Marcel Ricard",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 511,
+            "name": "POYET Andrée",
+            "birthdate": "1939-09-28T22:00:00.000Z",
+            "address_additional": "appt 43 ",
+            "phones": [
+              "05 63 38 24 71"
+            ]
+          },
+          {
+            "id": 512,
+            "name": "POYET Pierre",
+            "birthdate": "1948-10-25T22:00:00.000Z",
+            "address_additional": "appt 43 ",
+            "phones": [
+              "05 63 38 24 71"
+            ]
+          }
+        ],
+        "waypoint_index": 57
+      },
+      "id": 448
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1497798,
+          43.9279532
+        ]
+      },
+      "properties": {
+        "label": "63, Rue de la Croix Verte",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 516,
+            "name": "PRIVAT Yvonne",
+            "birthdate": "1926-06-21T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 49 77"
+            ]
+          }
+        ],
+        "waypoint_index": 40
+      },
+      "id": 452
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1480101,
+          43.9179423
+        ]
+      },
+      "properties": {
+        "label": "86, Rue de Lavazière",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 547,
+            "name": "REUS Georgette",
+            "birthdate": "1932-01-04T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 89 30"
+            ]
+          }
+        ],
+        "waypoint_index": 26
+      },
+      "id": 478
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1587088,
+          43.9242806
+        ]
+      },
+      "properties": {
+        "label": "8, Rue Louis Rascol",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 551,
+            "name": "RICHARD Henriette",
+            "birthdate": "1924-04-17T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 74 00"
+            ]
+          }
+        ],
+        "waypoint_index": 68
+      },
+      "id": 481
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1502817,
+          43.9282162
+        ]
+      },
+      "properties": {
+        "label": "57B, Rue de la Croix Verte",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 583,
+            "name": "SABLAYROLLES Jean",
+            "birthdate": "1923-11-09T23:00:00.000Z",
+            "address_additional": "2ème étage ",
+            "phones": [
+              "05 61 62 13 41",
+              "05 63 43 62 92"
+            ]
+          }
+        ],
+        "waypoint_index": 41
+      },
+      "id": 507
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1602486,
+          43.9229762
+        ]
+      },
+      "properties": {
+        "label": "197, Avenue Colonel Teyssier",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 601,
+            "name": "SICARD Robert",
+            "birthdate": "1928-12-12T23:00:00.000Z",
+            "address_additional": "appt 5 2ème étage",
+            "phones": []
+          }
+        ],
+        "waypoint_index": 73
+      },
+      "id": 519
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1521086,
+          43.9229018
+        ]
+      },
+      "properties": {
+        "label": "15, Rue Elie Augustin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 605,
+            "name": "SIRGUE Claudette",
+            "birthdate": "1920-11-11T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 19 14",
+              "05 63 54 36 91"
+            ]
+          }
+        ],
+        "waypoint_index": 86
+      },
+      "id": 523
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1535809,
+          43.9271568
+        ]
+      },
+      "properties": {
+        "label": "89, Boulevard Soult",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 633,
+            "name": "DUMONS Suzanne",
+            "birthdate": "1927-02-06T23:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 38 15 18",
+              "05 63 45 17 23"
+            ]
+          }
+        ],
+        "waypoint_index": 51
+      },
+      "id": 548
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1477472,
+          43.9233442
+        ]
+      },
+      "properties": {
+        "label": "25, Avenue Gambetta",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 647,
+            "name": "VAYSSIAIRE Huguette",
+            "birthdate": "1931-06-19T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 60 67 54 25"
+            ]
+          },
+          {
+            "id": 648,
+            "name": "VAYSSIAIRE Pierre",
+            "birthdate": "1929-07-18T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "06 60 67 54 25"
+            ]
+          }
+        ],
+        "waypoint_index": 32
+      },
+      "id": 558
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1588491,
+          43.9297585
+        ]
+      },
+      "properties": {
+        "label": "103, Rue Marcel Ricard",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 655,
+            "name": "VERGNES Therese",
+            "birthdate": "1925-04-03T22:00:00.000Z",
+            "address_additional": "",
+            "phones": [
+              "05 63 54 55 03"
+            ]
+          }
+        ],
+        "waypoint_index": 59
+      },
+      "id": 563
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1560857,
+          43.9096413
+        ]
+      },
+      "properties": {
+        "label": "6, Chemin des Huttes",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 661,
+            "name": "VIDAL Henri",
+            "birthdate": null,
+            "address_additional": "",
+            "phones": [
+              "05 63 38 45 75"
+            ]
+          }
+        ],
+        "waypoint_index": 13
+      },
+      "id": 568
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1484246,
+          43.9224953
+        ]
+      },
+      "properties": {
+        "label": "23 Boulevard Paul Bodin",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 689,
+            "name": "DURAND PERIE NICOLE",
+            "birthdate": null,
+            "address_additional": "appt 3 ",
+            "phones": [
+              "05 63 60 45 99"
+            ]
+          }
+        ],
+        "waypoint_index": 27
+      },
+      "id": 585
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1506288,
+          43.922126
+        ]
+      },
+      "properties": {
+        "label": "24 rue antoinette salvan de saliès",
+        "town": "81000 ALBI",
+        "beneficiaries": [
+          {
+            "id": 692,
+            "name": "JEAN RAYMOND",
+            "birthdate": null,
+            "address_additional": "bat c appt 1",
+            "phones": [
+              "05 63 49 97 69"
+            ]
+          }
+        ],
+        "waypoint_index": 38
+      },
+      "id": 588
+    }
+  ]
+}

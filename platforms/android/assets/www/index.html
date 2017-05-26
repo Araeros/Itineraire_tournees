@@ -1,70 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />		
-		<link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css"/>
-		<link rel="stylesheet" href="css/materialize.min.css">
-		<link rel="stylesheet" href="libs/leaflet/leaflet_awesome_number_markers.css" />
-        <title>map - Offline</title>
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-		<script type="text/javascript" src="libs/leaflet/leaflet.js"></script>
-		<script type="text/javascript" src="js/sql.js"></script>
-		<script type="text/javascript" src="js/jquery/dist/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-		<script type="text/javascript" src="js/materialize.min.js"></script>
-		<script type="text/javascript" src="libs/leaflet/leaflet_awesome_number_markers.js"></script>
-		<script type="text/javascript" src="cordova_plugin.js"></script>
- 		<script type="text/javascript" src ="res/tourAddresses0.json"></script>
-		<script type="text/javascript" src ="res/tourAddresses1.json"></script>
-		<script type="text/javascript" src ="res/tourTrip0.json"></script>
-		<script type="text/javascript" src ="res/tourTrip1.json"></script>
-    </head>
-	
-    <body class="light-green" onload="initmap();">
-    	<ul id="dropdown1" class="dropdown-content">
-  			<li><a id="myTruck1" href="#!">Tournée1</a></li>
-  			<li class="divider"></li>
-  			<li><a id="myTruck2" href="#!">Tournée2</a></li>
-  			<li class="divider"></li>  
-  			<li><a id="myTruck3" href="#!">Tournée3</a></li>
-  			<li class="divider"></li>
-  			<li><a id="myTruck4" href="#!">Tournée4</a></li>
-  			<li class="divider"></li>
-  			<li><a id="myTruck5" href="#!">Tournée5</a></li>
-  			<li class="divider"></li>
-  			<li><a id="myTruck6" href="#!">Tournée6</a></li>
-  			<li class="divider"></li>
-  			<li><a id="myTruck7" href="#!">Tournée7</a></li>
-			<li class="divider"></li>
-  			<li><a id="reset" href="#!">Effacer trajet</a></li>
-		</ul>
-        <div>
-			<nav>
-				<div class="nav-wrapper light-green">
-					<a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50"/></a>
-					<ul>
-						<li><a href="online.html"><button class="btn btn-floating hoverable light-green lighten-2"><img class="iconWifi" src="img/wifiOn.png"/></button></a></li>
-						<li><a><button class= "btn btn-floating hoverable light-green lighten-2" id="myLocation"><img class="iconGps" src="img/gps.png"/></button></a></li>
-						<li><a><button class= "btn btn-floating hoverable light-green lighten-2" id="myDownload"><img class="iconDownload" src="img/download.png"/></button></a></li>
-						<li><a><button class= "btn btn-floating hoverable light-green lighten-2" id="myRefresh"><img class="iconRefresh" src="img/refresh.png"/></button></a></li>
-						<li><a class="dropdown-button" href="#!" data-activates="dropdown1"><button class= "btn btn-floating hoverable light-green lighten-2"><img class="iconGps" src="img/truck.png"/></button></a></li>
-					</ul>
-				</div>
-			</nav>
-			
-			<div id="map" class="hoverable">	
-			</div>
-			
-			<p id="mapData">Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy <a href="http://openstreetmap.com">Open Street Map</a></p>
-		</div>	
-   
-		
-		
-		<script type="text/javascript" src="js/index.js"></script>
-   
-   </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="libs/leaflet/leaflet_awesome_number_markers.css" />
+    <title>map - Offline</title>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" src="libs/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="js/sql.js"></script>
+    <script type="text/javascript" src="js/jquery/dist/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="libs/leaflet/leaflet_awesome_number_markers.js"></script>
+    <!--<script type="text/javascript" src="res/tourAddresses0.json"></script>-->
+    <script type="text/javascript" src="res/tourAddresses1.json"></script>
+    <script type="text/javascript" src="res/tourAddresses2.json"></script>
+    <script type="text/javascript" src="res/tourAddresses3.json"></script>
+    <script type="text/javascript" src="res/tourAddresses4.json"></script>
+    <script type="text/javascript" src="res/tourAddresses5.json"></script>
+    <script type="text/javascript" src="res/tourTrip0.json"></script>
+    <script type="text/javascript" src="res/tourTrip1.json"></script>
+    <script type="text/javascript" src="res/tourTrip2.json"></script>
+    <script type="text/javascript" src="res/tourTrip3.json"></script>
+    <script type="text/javascript" src="res/tourTrip4.json"></script>
+    <script type="text/javascript" src="res/tourTrip5.json"></script>
+</head>
+
+<body class="light-green" onload="initmap();">
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a id="myTruck1" href="#!">Tournée1</a></li>
+        <li class="divider"></li>
+        <li><a id="myTruck2" href="#!">Tournée2</a></li>
+        <li class="divider"></li>
+        <li><a id="myTruck3" href="#!">Tournée3</a></li>
+        <li class="divider"></li>
+        <li><a id="myTruck4" href="#!">Tournée4</a></li>
+        <li class="divider"></li>
+        <li><a id="myTruck5" href="#!">Tournée5</a></li>
+        <li class="divider"></li>
+        <li><a id="myTruck6" href="#!">Tournée6</a></li>
+        <li class="divider"></li>
+        <li><a id="reset" href="#!">Effacer trajet</a></li>
+    </ul>
+    <div>
+        <nav>
+            <div class="nav-wrapper light-green">
+                <a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50" /></a>
+                <ul>
+                    <li>
+                        <a href="online.html">
+                            <button class="btn btn-floating hoverable light-green lighten-2"><img class="iconWifi" src="img/wifiOn.png" /></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <button class="btn btn-floating hoverable light-green lighten-2" id="myLocation"><img class="iconGps" src="img/gps.png" /></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <button class="btn btn-floating hoverable light-green lighten-2" id="myDownload"><img class="iconDownload" src="img/download.png" /></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <button class="btn btn-floating hoverable light-green lighten-2" id="myRefresh"><img class="iconRefresh" src="img/refresh.png" /></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                            <button class="btn btn-floating hoverable light-green lighten-2"><img class="iconGps" src="img/truck.png" /></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <button class="btn btn-floating hoverable light-green lighten-2" id="myRead"><img class="iconRead" src="img/read.png" /></button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="map" class="hoverable">
+        </div>
+    </div>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
 </html>
