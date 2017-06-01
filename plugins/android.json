@@ -39,6 +39,12 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-http": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "org.apache.cordova.network-information": {
+            "PACKAGE_NAME": "fr.mairie.dev"
         }
     },
     "dependent_plugins": {

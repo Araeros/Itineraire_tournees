@@ -21,26 +21,6 @@
 	text-align : center;
 }
 
-.iconWifi{
-	margin-top:1px;
-}
-	
-.iconGps {
-	margin-top:2px;
-}
-
-.iconDownload {
-	margin-top:1px;
-}
-
-.iconRefresh{
-	margin-top:2px;
-}
-
-.iconRead{
-	margin-top:1px;
-}
-
 .txtArea{
 	margin-left:3%;
 	margin-right:3%;
@@ -59,4 +39,21 @@ h2{
 	display: inline;
 	padding-left: 10px;
 	padding-right: 10px;
+}
+
+.icon {
+	font-size: 24px;
+}
+
+.icon-menu {
+	margin-top:-11px;
+	color : #689f38 !important;
+}
+
+/*
+A rajouter dans le js : document.getElementById("monElement").className += "maClasse3"; (ajoute une classe sans supprimer les autres)
+document.getElementById("monElement").className = document.getElementById("maClasse").className.replace( /(?:^|\s)icon-notif(?!\S)/g , "" ) (supprimer la class icon-notif)
+*/
+.icon-notif {
+	background-color: red;
 }

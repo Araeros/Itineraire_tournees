@@ -5,10 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="css/materialize.min.css">
-    <link rel="stylesheet" href="libs/leaflet/leaflet_awesome_number_markers.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet_awesome_number_markers.css">
+    <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
     <title>map - Offline</title>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" src="libs/leaflet/leaflet.js"></script>
@@ -16,69 +17,51 @@
     <script type="text/javascript" src="js/jquery/dist/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="libs/leaflet/leaflet_awesome_number_markers.js"></script>
-    <!--<script type="text/javascript" src="res/tourAddresses0.json"></script>-->
-    <script type="text/javascript" src="res/tourAddresses1.json"></script>
-    <script type="text/javascript" src="res/tourAddresses2.json"></script>
-    <script type="text/javascript" src="res/tourAddresses3.json"></script>
-    <script type="text/javascript" src="res/tourAddresses4.json"></script>
-    <script type="text/javascript" src="res/tourAddresses5.json"></script>
-    <script type="text/javascript" src="res/tourTrip0.json"></script>
-    <script type="text/javascript" src="res/tourTrip1.json"></script>
-    <script type="text/javascript" src="res/tourTrip2.json"></script>
-    <script type="text/javascript" src="res/tourTrip3.json"></script>
-    <script type="text/javascript" src="res/tourTrip4.json"></script>
-    <script type="text/javascript" src="res/tourTrip5.json"></script>
 </head>
 
 <body class="light-green" onload="initmap();">
     <ul id="dropdown1" class="dropdown-content">
-        <li><a id="myTruck1" href="#!">Tournée1</a></li>
-        <li class="divider"></li>
-        <li><a id="myTruck2" href="#!">Tournée2</a></li>
-        <li class="divider"></li>
-        <li><a id="myTruck3" href="#!">Tournée3</a></li>
-        <li class="divider"></li>
-        <li><a id="myTruck4" href="#!">Tournée4</a></li>
-        <li class="divider"></li>
-        <li><a id="myTruck5" href="#!">Tournée5</a></li>
-        <li class="divider"></li>
-        <li><a id="myTruck6" href="#!">Tournée6</a></li>
-        <li class="divider"></li>
-        <li><a id="reset" href="#!">Effacer trajet</a></li>
     </ul>
     <div>
         <nav>
             <div class="nav-wrapper light-green">
                 <a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50" /></a>
                 <ul>
+                    <!--
                     <li>
                         <a href="online.html">
                             <button class="btn btn-floating hoverable light-green lighten-2"><img class="iconWifi" src="img/wifiOn.png" /></button>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable light-green lighten-2" id="myLocation"><img class="iconGps" src="img/gps.png" /></button>
+                            <button class="btn btn-floating hoverable white" id="myLocation"><i class="icon icon-menu ion-location"></i></button>
                         </a>
                     </li>
+                    <!--
                     <li>
                         <a>
                             <button class="btn btn-floating hoverable light-green lighten-2" id="myDownload"><img class="iconDownload" src="img/download.png" /></button>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable light-green lighten-2" id="myRefresh"><img class="iconRefresh" src="img/refresh.png" /></button>
+                            <button class="btn btn-floating hoverable white" id="myRefresh"><i class="icon icon-menu ion-refresh"></i></button>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-button" href="#!" data-activates="dropdown1">
-                            <button class="btn btn-floating hoverable light-green lighten-2"><img class="iconGps" src="img/truck.png" /></button>
+                            <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-map"></i></button>
                         </a>
                     </li>
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable light-green lighten-2" id="myRead"><img class="iconRead" src="img/read.png" /></button>
+                            <button class="btn btn-floating hoverable white" id="sendLogs"><i class="icon icon-menu ion-paper-airplane"></i></button>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <button class="btn btn-floating hoverable white" id="myRead"><i class="icon icon-menu ion-help"></i></button>
                         </a>
                     </li>
                 </ul>

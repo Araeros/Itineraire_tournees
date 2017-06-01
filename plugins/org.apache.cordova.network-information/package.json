@@ -11,6 +11,30 @@
         "type": "version"
       },
       "C:\\cordova\\map\\node_modules"
+    ],
+    [
+      {
+        "raw": "cordova-plugin-network-information",
+        "scope": null,
+        "escapedName": "cordova-plugin-network-information",
+        "name": null,
+        "rawSpec": "cordova-plugin-network-information",
+        "spec": "C:\\cordova\\Itineraire_tournees\\node_modules\\cordova-plugin-network-information",
+        "type": "directory"
+      },
+      "C:\\cordova\\Itineraire_tournees\\node_modules"
+    ],
+    [
+      {
+        "raw": "cordova-plugin-network-information",
+        "scope": null,
+        "escapedName": "cordova-plugin-network-information",
+        "name": null,
+        "rawSpec": "cordova-plugin-network-information",
+        "spec": "C:\\cordova\\Itineraire_tournees\\node_modules\\cordova-plugin-network-information",
+        "type": "directory"
+      },
+      "C:\\cordova\\Itineraire_tournees\\node_modules"
     ]
   ],
   "_from": "cordova-plugin-network-information@0.2.14",
@@ -25,13 +49,13 @@
   "_npmVersion": "2.5.1",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "cordova-plugin-network-information@0.2.14",
+    "raw": "cordova-plugin-network-information",
     "scope": null,
     "escapedName": "cordova-plugin-network-information",
-    "name": "cordova-plugin-network-information",
-    "rawSpec": "0.2.14",
-    "spec": "0.2.14",
-    "type": "version"
+    "name": null,
+    "rawSpec": "cordova-plugin-network-information",
+    "spec": "C:\\cordova\\Itineraire_tournees\\node_modules\\cordova-plugin-network-information",
+    "type": "directory"
   },
   "_requiredBy": [
     "#USER",
@@ -40,8 +64,8 @@
   "_resolved": "https://registry.npmjs.org/cordova-plugin-network-information/-/cordova-plugin-network-information-0.2.14.tgz",
   "_shasum": "19c96edec0a4bee194e2158b46a4f17c452720b7",
   "_shrinkwrap": null,
-  "_spec": "cordova-plugin-network-information@0.2.14",
-  "_where": "C:\\cordova\\map\\node_modules",
+  "_spec": "cordova-plugin-network-information",
+  "_where": "C:\\cordova\\Itineraire_tournees\\node_modules",
   "author": {
     "name": "Apache Software Foundation"
   },

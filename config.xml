@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="fr.mairie.dev" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Offline Routing</name>
+    <name>Rout-Ine</name>
     <description>
         Une application de GPS Hors connexion sur la commune d'albi.
     </description>
@@ -37,4 +37,6 @@
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
     <plugin name="cordova-plugin-device" spec="~1.1.6" />
     <plugin name="cordova-plugin-file" spec="~4.3.3" />
+    <plugin name="cordova-plugin-http" spec="~1.2.0" />
+    <plugin name="org.apache.cordova.network-information" spec="~0.2.14" />
 </widget>

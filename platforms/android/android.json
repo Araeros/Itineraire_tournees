@@ -51,6 +51,14 @@
                         {
                             "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"CordovaHttpPlugin\"><param name=\"android-package\" value=\"com.synconset.CordovaHttpPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -79,6 +87,10 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
@@ -92,6 +104,10 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
                             "count": 1
                         }
                     ],
@@ -167,6 +183,12 @@
             "PACKAGE_NAME": "fr.mairie.dev"
         },
         "cordova-plugin-zip": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "cordova-plugin-http": {
+            "PACKAGE_NAME": "fr.mairie.dev"
+        },
+        "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "fr.mairie.dev"
         }
     },
@@ -458,6 +480,31 @@
             "clobbers": [
                 "zip"
             ]
+        },
+        {
+            "id": "cordova-plugin-http.CordovaHttpPlugin",
+            "file": "plugins/cordova-plugin-http/www/cordovaHTTP.js",
+            "pluginId": "cordova-plugin-http",
+            "clobbers": [
+                "CordovaHttpPlugin"
+            ]
+        },
+        {
+            "id": "org.apache.cordova.network-information.network",
+            "file": "plugins/org.apache.cordova.network-information/www/network.js",
+            "pluginId": "org.apache.cordova.network-information",
+            "clobbers": [
+                "navigator.connection",
+                "navigator.network.connection"
+            ]
+        },
+        {
+            "id": "org.apache.cordova.network-information.Connection",
+            "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
+            "pluginId": "org.apache.cordova.network-information",
+            "clobbers": [
+                "Connection"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -473,6 +520,8 @@
         "cordova-plugin-device": "1.1.6",
         "cordova-plugin-app-event": "1.2.0",
         "de.appplant.cordova.plugin.local-notification": "0.8.4",
-        "cordova-plugin-zip": "3.1.0"
+        "cordova-plugin-zip": "3.1.0",
+        "cordova-plugin-http": "1.2.0",
+        "org.apache.cordova.network-information": "0.2.14"
     }
 }

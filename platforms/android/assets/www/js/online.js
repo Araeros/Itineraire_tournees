@@ -274,7 +274,7 @@ function onEachFeature(feature, layer) {
             popContent = addLine(popContent, '<img src="img/cake-with-2-candles-md.png">');
         }
     }
-    //Si l'aobjet contient une note -> l'afficher
+    //Si l'objet contient une note -> l'afficher
     if (feature.properties.note) {
         var label = '<u>Note :</u>'
         popContent = addLine(popContent, label);
@@ -364,7 +364,7 @@ function currentLocation() {
         navigator.geolocation.getCurrentPosition((function(position) {
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-            map.setView([position.coords.latitude, position.coords.longitude], 17)
+            map.setView([position.coords.latitude, position.coords.longitude], 13)
         }));
     } else {
         alert("La géolocalisation n'est pas supportée par ce navigateur.");

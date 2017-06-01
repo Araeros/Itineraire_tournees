@@ -286,6 +286,31 @@ module.exports = [
         "clobbers": [
             "zip"
         ]
+    },
+    {
+        "id": "cordova-plugin-http.CordovaHttpPlugin",
+        "file": "plugins/cordova-plugin-http/www/cordovaHTTP.js",
+        "pluginId": "cordova-plugin-http",
+        "clobbers": [
+            "CordovaHttpPlugin"
+        ]
+    },
+    {
+        "id": "org.apache.cordova.network-information.network",
+        "file": "plugins/org.apache.cordova.network-information/www/network.js",
+        "pluginId": "org.apache.cordova.network-information",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "id": "org.apache.cordova.network-information.Connection",
+        "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
+        "pluginId": "org.apache.cordova.network-information",
+        "clobbers": [
+            "Connection"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -303,7 +328,9 @@ module.exports.metadata =
     "cordova-plugin-device": "1.1.6",
     "cordova-plugin-app-event": "1.2.0",
     "de.appplant.cordova.plugin.local-notification": "0.8.4",
-    "cordova-plugin-zip": "3.1.0"
+    "cordova-plugin-zip": "3.1.0",
+    "cordova-plugin-http": "1.2.0",
+    "org.apache.cordova.network-information": "0.2.14"
 };
 // BOTTOM OF METADATA
 });

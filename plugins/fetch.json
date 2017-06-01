@@ -118,5 +118,21 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-http": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-http"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "org.apache.cordova.network-information": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-network-information"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
