@@ -2,21 +2,25 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 340px)" href="css/index.css">
+    <link rel="stylesheet" type="text/css" media="screen and (max-width: 339px)" href="css/small.css">
     <link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet.css">
     <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="libs/leaflet/leaflet_awesome_number_markers.css">
     <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
     <title>map - Offline</title>
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" src="libs/leaflet/leaflet.js"></script>
-    <script type="text/javascript" src="js/sql.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery/dist/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/sql.js"></script>
+    <script type="text/javascript" src="libs/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="libs/leaflet/leaflet_awesome_number_markers.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="cordova_plugin.js"></script>
 </head>
 
 <body class="light-green" onload="initmap();">
@@ -25,28 +29,11 @@
     <div>
         <nav>
             <div class="nav-wrapper light-green">
-                <a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50" /></a>
+                <a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50"></a>
                 <ul>
-                    <!--
-                    <li>
-                        <a href="online.html">
-                            <button class="btn btn-floating hoverable light-green lighten-2"><img class="iconWifi" src="img/wifiOn.png" /></button>
-                        </a>
-                    </li>-->
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable white" id="myLocation"><i class="icon icon-menu ion-location"></i></button>
-                        </a>
-                    </li>
-                    <!--
-                    <li>
-                        <a>
-                            <button class="btn btn-floating hoverable light-green lighten-2" id="myDownload"><img class="iconDownload" src="img/download.png" /></button>
-                        </a>
-                    </li>-->
-                    <li>
-                        <a>
-                            <button class="btn btn-floating hoverable white" id="myRefresh"><i class="icon icon-menu ion-refresh"></i></button>
+                            <button class="btn btn-floating hoverable white" id="sendLogs"><i id="notif" class="icon icon-menu ion-paper-airplane"></i></button>
                         </a>
                     </li>
                     <li>
@@ -56,17 +43,13 @@
                     </li>
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable white" id="sendLogs"><i class="icon icon-menu ion-paper-airplane"></i></button>
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <button class="btn btn-floating hoverable white" id="myRead"><i class="icon icon-menu ion-help"></i></button>
+                            <button class="btn btn-floating hoverable white" id="myAsk"><i class="icon icon-menu ion-help"></i></button>
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <!--<progress max="100" value="0" id="ft-prog"></progress>-->
         <div id="map" class="hoverable">
         </div>
     </div>

@@ -1,10 +1,18 @@
 //'use strict';
+let server = 'http://10.1.0.205:9226';
+let tpsInit = 10; // Initialisation de l'appli (compter nb tournée/dezip/initMap) après X ms.
+let tpsGeoloc = 10000; //Temps entre chaques géolocalisations
+let tpsCheckConnection = 10000; //temps entre chaques vérifications de la connexion 
+let tpsVerifTournees = 10001; // temps de vérifs entre chaques demandes du nb de tournées au serveur
+let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier pour gérer les notifications
+let tpsEnvoi = 30000; //Teps entres chaques envoie du contenu du fichier au serveur si il y a du contenu
 let layer; //Layer des tuiles de la carte
 let map; //Objet map
 let trajet; //compteur de trajets
 let geojsonFeature = new Object(); //objet JSON des adresses
 let jsonFeatureTrip = new Object(); //Objet JSON des trajets
 let etatInternet; //Etat de la connexion internet (Inconnue, Wifi, 3G, Hors connexion, ect ..)
+let initialisation = 0; // Initialisation de la carte (offline = chargée sans connexion/ online = chargée sous couverture)
 
 function initmap() {
     /*
@@ -16,7 +24,7 @@ function initmap() {
     	maxZoom: 15
     }).addTo(map);
     */
-
+    checkConnection();
     map = L.map('map').setView([43.924, 2.1554], 13);
 
     layer = L.tileLayer('img/Tiles/{z}/{x}/{y}.png', {
@@ -26,10 +34,6 @@ function initmap() {
         maxZoom: 13
     }).addTo(map);
 
-    //Géolocalisation
-    $("#myLocation").click(function(e) {
-        currentLocation();
-    });
     /*
     	//Notification
     	$("#myNotification").click(function(e) {
@@ -42,7 +46,6 @@ function initmap() {
 
     //Télécharger nouvelle map
     $("#myDownload").click(function(e) {
-        checkConnection();
         if (etatInternet == 'No network connection') {
             alert('Aucune connection détectée');
         } else {
@@ -51,49 +54,89 @@ function initmap() {
         }
     });
 
-
-
-    //Decompresser une archive
-    $("#myRefresh").click(function(e) {
-        getTour();
-        unZip();
-        initMapUnziped();
-    });
-
     $("#sendLogs").click(function(e) {
         uploadFile();
     });
 
-    $("#myRead").click(function(e) {
-        checkFile();
+    $("#myAsk").click(function(e) {
+        help();
     });
+
+    setTimeout(function() { initAppli(); }, 10);
+
+    setInterval(function() { currentLocation(); }, 30000);
+
+    setInterval(function() { checkConnection(); }, 10000);
+
+    setInterval(function() {
+        if (initialisation == 'offline') {
+            if (etatInternet != 'No network connection') {
+                getTour();
+                chargementTournees = 'effectué';
+            }
+        }
+    }, 10001);
+
+    setInterval(function() {
+        checkFileNotif();
+    }, 5000);
+
+    setInterval(function() {
+        checkFileEnvoi();
+    }, 30000);
 
 }
 
+//Fonction d'aide
+function help() {
+    alert(" - Le premier bouton de l'application est le bouton d'envoi de logs.\n" +
+        " - Le deuxième bouton permet d'afficher la liste de trajets pour sélectionner et télécharger la tournée voulue.\n" +
+        " - Lorsque l'application n'a pas d'accès à internet il est impossible de télécharger un nouveau trajet.\n");
+}
+
+//Initialisation de l'application
+function initAppli() {
+    if (etatInternet == 'No network connection') {
+        unZip();
+        initMapUnziped();
+        initialisation = 'offline';
+        alert('Map Initialisée, nécessite une connexion pour charger les tournées');
+    } else {
+        getTour();
+        unZip();
+        initMapUnziped();
+        initialisation = 'online';
+        alert('Map initialisée, tournées chargées');
+    }
+}
+
+
 //Vérifie si il y a du contenu dans le fichier 'log.txt'
-function checkFile() {
+function checkFileNotif() {
 
     document.addEventListener('deviceready', function() {
 
         window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
             console.dir(f);
-        }, failReadCheck);
+        }, failReadCheckNotif);
 
         //This alias is a read-only pointer to the app itself
-        window.resolveLocalFileSystemURL("file:///storage/emulated/0/log.txt", gotFileCheck, failReadCheck);
+        window.resolveLocalFileSystemURL("file:///storage/emulated/0/log.txt", gotFileCheckNotif, failReadCheckNotif);
     });
 
 
-    function gotFileCheck(fileEntry) {
+    function gotFileCheckNotif(fileEntry) {
         fileEntry.file(function(file) {
             reader = new FileReader();
 
             reader.onloadend = function(e) {
                 console.log(this.result);
                 var checkLog = JSON.parse(this.result);
-                alert(JSON.stringify(checkLog, null, 2));
-                alert('test: {}')
-                    //document.querySelector("#readFile").innerHTML = this.result;
+                if (JSON.stringify(checkLog) != '{}') {
+                    document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane icon-notif';
+                }else{
+                	document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane';
+                }
             }
             reader.readAsText(file);
         });
@@ -101,24 +144,63 @@ function checkFile() {
 
     }
 
-    function failReadCheck(e) {
+    function failReadCheckNotif(e) {
         alert("FileSystem Error");
         alert(JSON.stringify(e, null, 2));
     }
+}
+
+//Vérifie si il y a du contenu dans le fichier 'log.txt'
+function checkFileEnvoi() {
+
+    document.addEventListener('deviceready', function() {
+
+        window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
+            console.dir(f);
+        }, failReadCheckEnvoi);
+
+        //This alias is a read-only pointer to the app itself
+        window.resolveLocalFileSystemURL("file:///storage/emulated/0/log.txt", gotFileCheckEnvoi, failReadCheckEnvoi);
+    });
 
 
+    function gotFileCheckEnvoi(fileEntry) {
+        fileEntry.file(function(file) {
+            reader = new FileReader();
+
+            reader.onloadend = function(e) {
+                console.log(this.result);
+                var checkLog = JSON.parse(this.result);
+                if (JSON.stringify(checkLog) != '{}') {
+                    if (etatInternet != 'No network connection') {
+                        uploadFile();
+                    }
+
+                }
+
+            }
+            reader.readAsText(file);
+        });
+
+
+    }
+
+    function failReadCheckEnvoi(e) {
+        alert("FileSystem Error");
+        alert(JSON.stringify(e, null, 2));
+    }
 }
 
 //Envoyer un fichier au serveur
 function uploadFile() {
 
     document.addEventListener('deviceready', function() {
-        cordovaHTTP.uploadFile("http://10.1.0.205:9226/tabletLogsUpload", {
+        cordovaHTTP.uploadFile(server+"/tabletLogsUpload", {
             id: 12,
             message: "test"
         }, { Authorization: "OAuth2: token" }, "file:///storage/emulated/0/log.txt", "file", function(response) {
-            alert('Statut: ' + response.status);
-            alert('Message: ' + response.data);
+            //alert('Statut: ' + response.status);
+            //alert('Message: ' + response.data);
             clearLog();
         }, function(response) {
             alert('Statut: ' + response.status);
@@ -127,42 +209,10 @@ function uploadFile() {
         });
     });
 
-}
-
-//Lire le fichier de log de passage
-function readLogPassage(callback) {
-    document.addEventListener('deviceready', function() {
-
-        window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
-            console.dir(f);
-        }, failReadLogPassage);
-
-        //This alias is a read-only pointer to the app itself
-        window.resolveLocalFileSystemURL("file:///storage/emulated/0/logPassage.txt", gotFileLogPassage, failReadLogPassage);
-    });
-
-
-    function gotFileLogPassage(fileEntry) {
-        fileEntry.file(function(file) {
-            reader = new FileReader();
-
-            reader.onloadend = function(e) {
-                console.log(this.result);
-                logFilePassage = JSON.parse(this.result);
-                alert(JSON.stringify(logFilePassage, null, 2));
-                callback();
-                //document.querySelector("#readFile").innerHTML = this.result;
-            }
-            reader.readAsText(file);
-        });
-    }
+    document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane';
 
 }
 
-function failReadLogPassage(e) {
-    alert("Erreur de lecture: Création d'un fichier logPassage.txt");
-    createLogFilePassage();
-}
 
 //Lire le fichier de log
 function readLog(callback) {
@@ -203,7 +253,7 @@ function failReadLog(e) {
 //récupération nombre de trajet
 function getTour() {
     document.addEventListener('deviceready', function() {
-        cordovaHTTP.get("http://10.1.0.205:9226/getNumberOfTours", {
+        cordovaHTTP.get(server+"/getNumberOfTours", {
             id: 12,
             message: "test"
         }, { Authorization: "OAuth2: token" }, function(response) {
@@ -212,8 +262,8 @@ function getTour() {
             try {
                 response = JSON.parse(response.data);
                 // prints test
-                alert(JSON.stringify(response.numberOfTours, null, 2) + ' Tournées trouvées');
                 let nbTour = response.numberOfTours;
+                nbTour = nbTour +1;
                 //Menu déroulant !
                 let dropdown = $('#dropdown1');
 
@@ -223,8 +273,16 @@ function getTour() {
 
                     let link = $('<a id="myTruck' + i + '" href="#!">').text('Tournée' + i);
 
+                    if (i == nbTour) {
+                        link = $('<a id="myTruck' + i + '" href="#!">').text('Tournée Extérieur Albi');
+                    }
+
                     link.click(function(e) {
-                        trajet = i - 1;
+                        if (i == nbTour) {
+                            trajet = 'Outside';
+                        } else {
+                            trajet = i - 1;
+                        }
                         downloadFile();
                     });
 
@@ -245,19 +303,6 @@ function getTour() {
     });
 }
 
-function createLogFilePassage() {
-    document.addEventListener('deviceready', function() {
-        var Fichier = "logPassage.txt";
-        var Texte = "{}";
-
-        fail = function(e) { alert(JSON.stringify(e)); }
-        gotFileWriter = function(writer) { writer.write(Texte); };
-        gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
-        gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-        alert('Fichier LogPassage.txt créé');
-    });
-}
 //génére le fichier de log
 function createLogFile() {
     document.addEventListener('deviceready', function() {
@@ -326,6 +371,9 @@ function onEachFeature(feature, layer) {
         if (isAnniversary) {
             popContent = addLine(popContent, '<img src="img/cake-with-2-candles-md.png">');
         }
+        if (b.phones) {
+            popContent = addLine(popContent, b.phones)
+        }
         if (b.note) {
             var label = '<u>Note :</u>'
             popContent = addLine(popContent, label);
@@ -339,8 +387,8 @@ function onEachFeature(feature, layer) {
 
     div_popup.innerHTML = '<ul><li id="inline"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
         '<li id="inline"><a href="#" class="cancel"><i class="icon ion-android-cancel"></i></a></li>' +
-        '<li id="inline"><a href="#" class="form"><i class="icon ion-clipboard"></i></a></li></ul>' +
         '<input id="msg">' +
+        '<a href="#" class="form"><i class="icon ion-clipboard"></i></a></ul>' +
         '<p id="retour"></p>';
 
     div_popup.innerHTML = addLine(popContent, div_popup.innerHTML);
@@ -350,60 +398,15 @@ function onEachFeature(feature, layer) {
         layer.setIcon(new L.AwesomeNumberMarkers({
             number: feature.properties.waypoint_index,
             markerColor: "green"
-        })),
-
-        document.addEventListener('deviceready', function() {
-            var Fichier = "logPassage.txt";
-
-            var TexteV = new Object();
-            TexteV.adress_id = feature.id;
-            TexteV.uuid = device.uuid;
-            TexteV.tour_number = feature.properties.tour.num;
-            TexteV.type = passage;
-
-            //Lecture pour réécriture
-            readLogPassage(function() {
-                alert('read effectué');
-                logFilePassage[new Date()] = TexteV;
-                alert(JSON.stringify(logFilePassage, null, 2));
-
-                fail = function(e) { alert(JSON.stringify(e)); }
-                gotFileWriter = function(writer) { writer.write(JSON.stringify(logFilePassage, null, 2)); };
-                gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
-                gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            });
-        });
+        }));
     });
+
     //si marker vert -> coloré
     $('a.cancel', div_popup).on('click', function() {
         layer.setIcon(new L.AwesomeNumberMarkers({
             number: feature.properties.waypoint_index,
             markerColor: "darkred"
-        })),
-
-        document.addEventListener('deviceready', function() {
-            var Fichier = "logPassage.txt";
-
-            var TexteR = new Object();
-            TexteR.adress_id = feature.id;
-            TexteR.uuid = device.uuid;
-            TexteR.tour_number = feature.properties.tour.num;
-            TexteR.type = Erreur;
-
-            //Lecture pour réécriture
-            readLogPassage(function() {
-                alert('read effectué');
-                logFilePassage[new Date()] = TexteR;
-                alert(JSON.stringify(logFilePassage, null, 2));
-
-                fail = function(e) { alert(JSON.stringify(e)); }
-                gotFileWriter = function(writer) { writer.write(JSON.stringify(logFilePassage, null, 2)); };
-                gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
-                gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            });
-        });
+        }));
     });
 
     //Ecriture dans un fichier
@@ -416,7 +419,7 @@ function onEachFeature(feature, layer) {
             //N° de tournée / id de l'adresse / Adresse mac de la tablette / message perso / date et heure
             //let dateMsg = new Date();
             var Texte = new Object();
-            Texte.adress_id = feature.id;
+            Texte.address_id = feature.id;
             Texte.message = x;
             //Texte.date = dateMsg;
             Texte.uuid = device.uuid;
@@ -424,7 +427,6 @@ function onEachFeature(feature, layer) {
 
             //Lecture pour réécriture
             readLog(function() {
-                alert('read effectué');
                 logFile[new Date()] = Texte;
                 alert(JSON.stringify(logFile, null, 2));
 
@@ -469,7 +471,7 @@ function clearLog() {
         gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
         gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-        alert('Log.txt nettoyé');
+        //alert('Log.txt nettoyé');
     });
 }
 
@@ -501,8 +503,14 @@ function gotFileAddresses(fileEntry) {
 
             geojsonFeature = JSON.parse(this.result);
             //document.querySelector("#readFile").innerHTML = this.result;
-            let numTournee = trajet + 1;
-            alert('Tournée N°' + numTournee + ' sélectionnée.');
+            if (trajet == 'Outside') {
+                let numTournee = 'Extérieur Albi';
+                alert('Tournée ' + numTournee + ' sélectionnée.');
+            } else {
+                let numTournee = trajet + 1;
+                alert('Tournée N°' + numTournee + ' sélectionnée.');
+            }
+
             truck();
         }
 
@@ -571,7 +579,7 @@ function form(varX) {
 function downloadFile() {
     document.addEventListener('deviceready', function() {
         let fileTransfer = new FileTransfer();
-        let uri = encodeURI("http://10.1.0.205:9226/downloadAddresses?num=" + trajet);
+        let uri = encodeURI(server+"/downloadAddresses?num=" + trajet);
         //DL sur la carte SD
         //fileURL = "file:///storage/sdcard1/Download/Test/cordova_bot.png";
         //DL sur la mémoire interne
@@ -604,7 +612,7 @@ function downloadFile() {
         );
 
         let fileTransferTrip = new FileTransfer();
-        uri = encodeURI("http://10.1.0.205:9226/downloadTrip?num=" + trajet);
+        uri = encodeURI(server+"/downloadTrip?num=" + trajet);
         //DL sur la carte SD
         //fileURL = "file:///storage/sdcard1/Download/Test/cordova_bot.png";
         //DL sur la mémoire interne
@@ -755,7 +763,7 @@ function currentLocation() {
             map.setView([position.coords.latitude, position.coords.longitude], 13) //Centre la carte sur votre position actuelle
         }));
     } else {
-        alert("La géolocalisation n'est pas supportée.");
+        //alert("La géolocalisation n'est pas supportée.");
     }
 }
 

@@ -1,5 +1,5 @@
 #map { 
-	height: 700px; 
+	height: 600px; 
 }
 
 #bandeau {
@@ -37,8 +37,8 @@ h2{
 
 #inline{
 	display: inline;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .icon {
@@ -46,7 +46,7 @@ h2{
 }
 
 .icon-menu {
-	margin-top:-11px;
+	margin-top:-8px;
 	color : #689f38 !important;
 }
 
