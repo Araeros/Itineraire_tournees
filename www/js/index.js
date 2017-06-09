@@ -1,5 +1,5 @@
 let server = 'http://10.1.0.205:9226';
-let tpsInit = 10; // Initialisation de l'appli (compter nb tournée/dezip/initMap) après X ms.
+let tpsInit = 100; // Initialisation de l'appli (compter nb tournée/dezip/initMap) après X ms.
 let tpsGeoloc = 2000; //Temps entre chaques géolocalisations
 let tpsCheckConnection = 10000; //temps entre chaques vérifications de la connexion 
 let tpsVerifTournees = 10001; // temps de vérifs entre chaques demandes du nb de tournées au serveur
@@ -9,9 +9,9 @@ let layer; //Layer des tuiles de la carte
 let markerGeo; //Marqueur de Geolocalisation
 let map; //Objet map
 let trajet; //compteur de trajets
+let etatInternet;
 let geojsonFeature = new Object(); //objet JSON des adresses
 let jsonFeatureTrip = new Object(); //Objet JSON des trajets
-let etatInternet; //Etat de la connexion internet (Inconnue, Wifi, 3G, Hors connexion, ect ..)
 let initialisation = 0; // Initialisation de la carte (offline = chargée sans connexion/ online = chargée sous couverture)
 
 function initmap() {
@@ -70,6 +70,7 @@ function initmap() {
 
     setInterval(function() {
         if (initialisation == 'offline') {
+        	alert ('Initialisation'+etatInternet);
             if (etatInternet != 'No network connection') {
                 getTour();
                 chargementTournees = 'effectué';
@@ -96,12 +97,15 @@ function help() {
 
 //Initialisation de l'application
 function initAppli() {
+	alert ('Initialisation'+ etatInternet);
     if (etatInternet == 'No network connection') {
+    	alert('Pas internet');
         unZip();
         initMapUnziped();
         initialisation = 'offline';
         alert('Map Initialisée, nécessite une connexion pour charger les tournées');
     } else {
+    	alert('Connexion détectée');
         getTour();
         unZip();
         initMapUnziped();
@@ -446,6 +450,7 @@ function onEachFeature(feature, layer) {
 function checkConnection() {
 
     document.addEventListener('deviceready', function() {
+/*
         var etatConnexion = navigator.connection.type;
 
         var etats = {};
@@ -457,8 +462,10 @@ function checkConnection() {
         etats[Connection.CELL_4G] = 'Cell 4G connection';
         etats[Connection.CELL] = 'Cell generic connection';
         etats[Connection.NONE] = 'No network connection';
+*/
 
-        etatInternet = etats[etatConnexion];
+        etatInternet = navigator.connection.type;
+        alert('checkConnection :'+etatInternet)
     });
 }
 
