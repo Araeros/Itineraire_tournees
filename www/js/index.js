@@ -6,6 +6,7 @@ let tpsVerifTournees = 10001; // temps de vérifs entre chaques demandes du nb d
 let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier pour gérer les notifications
 let tpsEnvoi = 30000; //Teps entres chaques envoie du contenu du fichier au serveur si il y a du contenu
 let layer; //Layer des tuiles de la carte
+let markerGeo; //Marqueur de Geolocalisation
 let map; //Objet map
 let trajet; //compteur de trajets
 let geojsonFeature = new Object(); //objet JSON des adresses
@@ -822,7 +823,7 @@ function currentLocation() {
         	if (markerGeo) {
         		markerGeo.remove();
         	}
-            var markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+            markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
             map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
         }));
