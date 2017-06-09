@@ -21,8 +21,8 @@ function initmap() {
 
     //layer = L.tileLayer.mbTiles('/storage/emulated/0/Download/map.mbtiles', {
     layer = L.tileLayer.mbTiles('img/map.mbtiles', {
-    	minZoom: 11,
-    	maxZoom: 15
+        minZoom: 11,
+        maxZoom: 15
     }).addTo(map);
     */
     map = L.map('map').setView([43.924, 2.1554], 13);
@@ -35,13 +35,13 @@ function initmap() {
     }).addTo(map);
 
     /*
-    	//Notification
-    	$("#myNotification").click(function(e) {
-    		//Emet le son chosi par défaut des notifications (paramètre = nombre de fois)
-    		navigator.notification.beep(1);
-    		// Vibre le temps choisi (paramètre = tmp en ms)
-    		navigator.vibrate(500);
-    	});
+        //Notification
+        $("#myNotification").click(function(e) {
+            //Emet le son chosi par défaut des notifications (paramètre = nombre de fois)
+            navigator.notification.beep(1);
+            // Vibre le temps choisi (paramètre = tmp en ms)
+            navigator.vibrate(500);
+        });
     */
 
     //Télécharger nouvelle map
@@ -72,7 +72,7 @@ function initmap() {
         if (initialisation == 'offline') {
             if (etatInternet != 'none') {
                 getTour();
-                chargementTournees = 'effectué';
+                initialisation = 'effectuée';
             }
         }
     }, tpsVerifTournees);
@@ -105,7 +105,7 @@ function initAppli() {
         getTour();
         unZip();
         initMapUnziped();
-        initialisation = 'online';
+        initialisation = 'effectuée';
         alert('Map initialisée, tournées chargées');
     }
 }
@@ -446,20 +446,19 @@ function onEachFeature(feature, layer) {
 function checkConnection() {
 
     document.addEventListener('deviceready', function() {
-/*
-        var etats = {};
-        etats[Connection.UNKNOWN] = 'Unknown connection';
-        etats[Connection.ETHERNET] = 'Ethernet connection';
-        etats[Connection.WIFI] = 'WiFi connection';
-        etats[Connection.CELL_2G] = 'Cell 2G connection';
-        etats[Connection.CELL_3G] = 'Cell 3G connection';
-        etats[Connection.CELL_4G] = 'Cell 4G connection';
-        etats[Connection.CELL] = 'Cell generic connection';
-        etats[Connection.NONE] = 'No network connection';
-*/
+        /*
+                var etats = {};
+                etats[Connection.UNKNOWN] = 'Unknown connection';
+                etats[Connection.ETHERNET] = 'Ethernet connection';
+                etats[Connection.WIFI] = 'WiFi connection';
+                etats[Connection.CELL_2G] = 'Cell 2G connection';
+                etats[Connection.CELL_3G] = 'Cell 3G connection';
+                etats[Connection.CELL_4G] = 'Cell 4G connection';
+                etats[Connection.CELL] = 'Cell generic connection';
+                etats[Connection.NONE] = 'No network connection';
+        */
 
         etatInternet = navigator.connection.type;
-        alert('checkConnection : '+etatInternet)
     });
 }
 
@@ -732,10 +731,10 @@ function initMapUnziped() {
 function unZip() {
     //Ne dezip pas si les dossiers contenu dans le zip sont déjà présents dans le dossier de destination (= si dezip effectué auparavant)
     /*
-    	//Récupération sur la carte SD
-    	zip.unzip("/storage/sdcard1/Download/Tiles.zip", "/storage/sdcard1/Download", function() {
-    		notifyZip();
-    	});
+        //Récupération sur la carte SD
+        zip.unzip("/storage/sdcard1/Download/Tiles.zip", "/storage/sdcard1/Download", function() {
+            notifyZip();
+        });
     */
     //Récupération Mémoire interne
 
@@ -821,44 +820,17 @@ function reset() {
 function currentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((function(position) {
-        	if (markerGeo) {
-        		markerGeo.remove();
-        	}
+            if (markerGeo) {
+                markerGeo.remove();
+            }
             markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-            map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
-        }));
+           // map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
+        })/*, { enableHighAccuracy: true } */);
     } else {
         alert("La géolocalisation n'est pas supportée.");
     }
 }
-
-//Les plugins de cordova supportent en général mal les nouvelles permissions d'android 6.0 (Runtime permissions) il faut aller les accepter manuellement dans les paramètres
-/*
-//Permissions parcourir fichiers pour récupérer la carte dans le dossier Download -> Nécessaire à partir d'android 6.0.0
-document.addEventListener('deviceready', () => {
-	const permissions = cordova.plugins.permissions;
-	checkRequest();
-} 
-
-function checkRequest(){
-	permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function( status ){
-		if ( status.hasPermission ) {
-		}
-		else {
-			permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
-		}
-	});
-}
-
-function error() {
-	console.warn('WRITE_EXTERNAL_STORAGE n'est pas autorisé');
-}
-
-function success( status ) {
-	if( !status.hasPermission ) error();
-}
-*/
 
 var app = {
     // Application Constructor
