@@ -1,7 +1,6 @@
-//'use strict';
 let server = 'http://10.1.0.205:9226';
 let tpsInit = 10; // Initialisation de l'appli (compter nb tournée/dezip/initMap) après X ms.
-let tpsGeoloc = 10000; //Temps entre chaques géolocalisations
+let tpsGeoloc = 2000; //Temps entre chaques géolocalisations
 let tpsCheckConnection = 10000; //temps entre chaques vérifications de la connexion 
 let tpsVerifTournees = 10001; // temps de vérifs entre chaques demandes du nb de tournées au serveur
 let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier pour gérer les notifications
@@ -62,11 +61,11 @@ function initmap() {
         help();
     });
 
-    setTimeout(function() { initAppli(); }, 10);
+    setTimeout(function() { initAppli(); }, tpsInit);
 
-    setInterval(function() { currentLocation(); }, 30000);
+    setInterval(function() { currentLocation(); }, tpsGeoloc);
 
-    setInterval(function() { checkConnection(); }, 10000);
+    setInterval(function() { checkConnection(); }, tpsCheckConnection);
 
     setInterval(function() {
         if (initialisation == 'offline') {
@@ -75,15 +74,15 @@ function initmap() {
                 chargementTournees = 'effectué';
             }
         }
-    }, 10001);
+    }, tpsVerifTournees);
 
     setInterval(function() {
         checkFileNotif();
-    }, 5000);
+    }, tpsNotif);
 
     setInterval(function() {
         checkFileEnvoi();
-    }, 30000);
+    }, tpsEnvoi);
 
 }
 
@@ -134,8 +133,8 @@ function checkFileNotif() {
                 var checkLog = JSON.parse(this.result);
                 if (JSON.stringify(checkLog) != '{}') {
                     document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane icon-notif';
-                }else{
-                	document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane';
+                } else {
+                    document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane';
                 }
             }
             reader.readAsText(file);
@@ -195,9 +194,10 @@ function checkFileEnvoi() {
 function uploadFile() {
 
     document.addEventListener('deviceready', function() {
-        cordovaHTTP.uploadFile(server+"/tabletLogsUpload", {
-            id: 12,
-            message: "test"
+        cordovaHTTP.uploadFile(server + "/tabletLogsUpload", {
+            username: 'rout-ine',
+            password: 'extranetrout-ine81'
+
         }, { Authorization: "OAuth2: token" }, "file:///storage/emulated/0/log.txt", "file", function(response) {
             //alert('Statut: ' + response.status);
             //alert('Message: ' + response.data);
@@ -253,9 +253,9 @@ function failReadLog(e) {
 //récupération nombre de trajet
 function getTour() {
     document.addEventListener('deviceready', function() {
-        cordovaHTTP.get(server+"/getNumberOfTours", {
-            id: 12,
-            message: "test"
+        cordovaHTTP.post(server + "/getNumberOfTours", {
+            username: 'rout-ine',
+            password: 'extranetrout-ine81'
         }, { Authorization: "OAuth2: token" }, function(response) {
             // prints 200
             console.log(response.status);
@@ -263,7 +263,7 @@ function getTour() {
                 response = JSON.parse(response.data);
                 // prints test
                 let nbTour = response.numberOfTours;
-                nbTour = nbTour +1;
+                nbTour = nbTour + 1;
                 //Menu déroulant !
                 let dropdown = $('#dropdown1');
 
@@ -284,6 +284,7 @@ function getTour() {
                             trajet = i - 1;
                         }
                         downloadFile();
+                        downloadTrip();
                     });
 
                     dropdown.append($('<li>').append(link));
@@ -352,7 +353,7 @@ function onEachFeature(feature, layer) {
     let p = feature.properties;
     let popContent = p.label + (p.special != undefined ? ', ' + p.special : '');
 
-    for (let b of p.beneficiaries) {
+    for (let b of feature.properties.beneficiaries) {
         let line = b.name;
         let isAnniversary = false;
         if (b.birthdate != null) {
@@ -475,6 +476,7 @@ function clearLog() {
     });
 }
 
+/* PLUS UTILISEES -> Remplacée par post et parsage dans une variable pour authentification
 //Lecture d'un fichier adresses
 function readAddresses() {
 
@@ -557,7 +559,7 @@ function gotFileTrip(fileEntry) {
 
 
 }
-
+*/
 
 //Formulaire de gestion des erreurs sur les markers
 function form(varX) {
@@ -575,11 +577,69 @@ function form(varX) {
     return varX;
 }
 
+// Téléchargement 2.0 ! 
+
+function downloadFile() {
+    cordovaHTTP.post(server + "/downloadAddresses", {
+            username: 'rout-ine',
+            password: 'extranetrout-ine81',
+            num: trajet
+        }, { Authorization: "OAuth2: token" }, function(response) {
+            // prints 200
+            try {
+                geojsonFeature = JSON.parse(response.data);
+                //document.querySelector("#readFile").innerHTML = this.result;
+                if (trajet == 'Outside') {
+                    let numTournee = 'Extérieur Albi';
+                    alert('Tournée ' + numTournee + ' sélectionnée.');
+                } else {
+                    let numTournee = trajet + 1;
+                    alert('Tournée N°' + numTournee + ' sélectionnée.');
+                }
+                notifySuccess();
+                truck();
+            } catch (e) {
+                console.error("JSON parsing error");
+            }
+        },
+        function(response) {
+            // prints 403
+            alert(response.status);
+            //prints Permission denied 
+            alert(JSON.stringify(response.error, null, 2));
+        });
+}
+
+function downloadTrip() { //A terme : écrire variable dans un fichier
+    cordovaHTTP.post(server + "/downloadTrip", {
+            username: 'rout-ine',
+            password: 'extranetrout-ine81',
+            num: trajet
+        }, { Authorization: "OAuth2: token" }, function(response) {
+            // prints 200
+            try {
+                jsonFeatureTrip = JSON.parse(response.data);
+                notifySuccess();
+                truck();
+            } catch (e) {
+                console.error("JSON parsing error");
+            }
+        },
+        function(response) {
+            // prints 403
+            alert(response.status);
+            //prints Permission denied 
+            alert(JSON.stringify(response.error, null, 2));
+        });
+}
+
+
 //Téléchargement (Supprime le fichier si déjà existant et le remplace)
+/*
 function downloadFile() {
     document.addEventListener('deviceready', function() {
         let fileTransfer = new FileTransfer();
-        let uri = encodeURI(server+"/downloadAddresses?num=" + trajet);
+        let uri = encodeURI(server + "/downloadAddresses?num=" + trajet);
         //DL sur la carte SD
         //fileURL = "file:///storage/sdcard1/Download/Test/cordova_bot.png";
         //DL sur la mémoire interne
@@ -612,7 +672,7 @@ function downloadFile() {
         );
 
         let fileTransferTrip = new FileTransfer();
-        uri = encodeURI(server+"/downloadTrip?num=" + trajet);
+        uri = encodeURI(server + "/downloadTrip?num=" + trajet);
         //DL sur la carte SD
         //fileURL = "file:///storage/sdcard1/Download/Test/cordova_bot.png";
         //DL sur la mémoire interne
@@ -645,6 +705,7 @@ function downloadFile() {
         );
     });
 }
+*/
 
 
 //Réinitialisation carte
@@ -758,12 +819,15 @@ function reset() {
 function currentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((function(position) {
-            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-            map.setView([position.coords.latitude, position.coords.longitude], 13) //Centre la carte sur votre position actuelle
+        	if (markerGeo) {
+        		markerGeo.remove();
+        	}
+            var markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+            //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
+            map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
         }));
     } else {
-        //alert("La géolocalisation n'est pas supportée.");
+        alert("La géolocalisation n'est pas supportée.");
     }
 }
 
@@ -793,3 +857,32 @@ function success( status ) {
 	if( !status.hasPermission ) error();
 }
 */
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
+
+    // deviceready Event Handler
+    //
+    // Bind any cordova events here. Common events are:
+    // 'pause', 'resume', etc.
+    onDeviceReady: function() {
+        this.receivedEvent('deviceready');
+    },
+
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+    }
+};
+
+app.initialize();
