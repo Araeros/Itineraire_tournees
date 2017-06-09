@@ -10,6 +10,7 @@ let markerGeo; //Marqueur de Geolocalisation
 let map; //Objet map
 let trajet; //compteur de trajets
 let etatInternet;
+checkConnection();
 let geojsonFeature = new Object(); //objet JSON des adresses
 let jsonFeatureTrip = new Object(); //Objet JSON des trajets
 let initialisation = 0; // Initialisation de la carte (offline = chargée sans connexion/ online = chargée sous couverture)
@@ -24,7 +25,6 @@ function initmap() {
     	maxZoom: 15
     }).addTo(map);
     */
-    checkConnection();
     map = L.map('map').setView([43.924, 2.1554], 13);
 
     layer = L.tileLayer('img/Tiles/{z}/{x}/{y}.png', {
@@ -46,7 +46,7 @@ function initmap() {
 
     //Télécharger nouvelle map
     $("#myDownload").click(function(e) {
-        if (etatInternet == 'No network connection') {
+        if (etatInternet == 'none') {
             alert('Aucune connection détectée');
         } else {
             alert('Télécharger la nouvelle map !');
@@ -70,8 +70,7 @@ function initmap() {
 
     setInterval(function() {
         if (initialisation == 'offline') {
-        	alert ('Initialisation'+etatInternet);
-            if (etatInternet != 'No network connection') {
+            if (etatInternet != 'none') {
                 getTour();
                 chargementTournees = 'effectué';
             }
@@ -97,15 +96,12 @@ function help() {
 
 //Initialisation de l'application
 function initAppli() {
-	alert ('Initialisation'+ etatInternet);
-    if (etatInternet == 'No network connection') {
-    	alert('Pas internet');
+    if (etatInternet == 'none') {
         unZip();
         initMapUnziped();
         initialisation = 'offline';
         alert('Map Initialisée, nécessite une connexion pour charger les tournées');
     } else {
-    	alert('Connexion détectée');
         getTour();
         unZip();
         initMapUnziped();
@@ -176,7 +172,7 @@ function checkFileEnvoi() {
                 console.log(this.result);
                 var checkLog = JSON.parse(this.result);
                 if (JSON.stringify(checkLog) != '{}') {
-                    if (etatInternet != 'No network connection') {
+                    if (etatInternet != 'none') {
                         uploadFile();
                     }
 
@@ -451,8 +447,6 @@ function checkConnection() {
 
     document.addEventListener('deviceready', function() {
 /*
-        var etatConnexion = navigator.connection.type;
-
         var etats = {};
         etats[Connection.UNKNOWN] = 'Unknown connection';
         etats[Connection.ETHERNET] = 'Ethernet connection';
@@ -465,7 +459,6 @@ function checkConnection() {
 */
 
         etatInternet = navigator.connection.type;
-        alert('checkConnection :'+etatInternet)
     });
 }
 
