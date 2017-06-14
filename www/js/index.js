@@ -63,6 +63,14 @@ function initmap() {
         currentLocationCenter();
     });
 
+    $("#day").click(function(e) {
+        switchDay();
+    });
+
+    $("#night").click(function(e) {
+        switchNight();
+    });
+
     hideParam();
 
     setTimeout(function() { initAppli(); }, tpsInit);
@@ -88,6 +96,37 @@ function initmap() {
         checkFileEnvoi();
     }, tpsEnvoi);
 
+}
+
+
+function switchDay() {
+    document.getElementById("iconSwitchDay").className = "buttonSwitchDay ion-ios-sunny";
+    document.getElementById("iconSwitchNight").className = "buttonSwitchDay ion-ios-moon";
+    document.getElementById("notif").className = "icon-menuDay ion-paper-airplane";
+    document.getElementById("rout").className = "icon-menuDay ion-map";
+    document.getElementById("param").className = "icon-menuDay ion-gear-a";
+    document.getElementById("return").className = "icon-menuDay ion-arrow-return-left";
+    document.getElementById("test").className = "icon-menuDay ion-pinpoint";
+    document.getElementById("body").className = "light-green";
+    document.getElementById("dropdown1").className = "dropdown-content";
+    document.getElementById("menu").className = "nav-wrapper light-green";
+    document.getElementById("paramMain").className = "z-depth-3 aideMain light-green lighten-2";
+    document.getElementById("paramP").className = "aide";
+}
+
+function switchNight() {
+    document.getElementById("iconSwitchDay").className = "buttonSwitchNight ion-ios-sunny";
+    document.getElementById("iconSwitchNight").className = "buttonSwitchNight ion-ios-moon";
+    document.getElementById("notif").className = "icon-menuNight ion-paper-airplane";
+    document.getElementById("rout").className = "icon-menuNight ion-map";
+    document.getElementById("param").className = "icon-menuNight ion-gear-a";
+    document.getElementById("return").className = "icon-menuNight ion-arrow-return-left";
+    document.getElementById("test").className = "icon-menuNight ion-pinpoint";
+    document.getElementById("body").className = "blue darken-4";
+    document.getElementById("dropdown1").className = "dropdown-content nightMenu";
+    document.getElementById("menu").className = "nav-wrapper blue darken-4";
+    document.getElementById("paramMain").className = "z-depth-3 aideMain nightParam";
+    document.getElementById("paramP").className = "aideNight";
 }
 
 function openParam() {
@@ -467,18 +506,6 @@ function onEachFeature(feature, layer) {
 function checkConnection() {
 
     document.addEventListener('deviceready', function() {
-        /*
-                var etats = {};
-                etats[Connection.UNKNOWN] = 'Unknown connection';
-                etats[Connection.ETHERNET] = 'Ethernet connection';
-                etats[Connection.WIFI] = 'WiFi connection';
-                etats[Connection.CELL_2G] = 'Cell 2G connection';
-                etats[Connection.CELL_3G] = 'Cell 3G connection';
-                etats[Connection.CELL_4G] = 'Cell 4G connection';
-                etats[Connection.CELL] = 'Cell generic connection';
-                etats[Connection.NONE] = 'No network connection';
-        */
-
         etatInternet = navigator.connection.type;
     });
 }
@@ -494,7 +521,6 @@ function clearLog() {
         gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
         gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-        //alert('Log.txt nettoyé');
     });
 }
 

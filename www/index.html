@@ -22,41 +22,41 @@
     <script type="text/javascript" src="js/index.js"></script>
 </head>
 
-<body class="light-green" onload="initmap();">
+<body id="body" class="light-green" onload="initmap();">
     <ul id="dropdown1" class="dropdown-content">
     </ul>
     <div>
         <nav>
-            <div class="nav-wrapper light-green">
+            <div id="menu" class="nav-wrapper light-green">
                 <a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50"></a>
                 <ul>
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable white" id="sendLogs"><i id="notif" class="icon icon-menu ion-paper-airplane"></i></button>
+                            <button class="btn btn-floating hoverable white" id="sendLogs"><i id="notif" class="icon-menuDay ion-paper-airplane"></i></button>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-button" href="#!" data-activates="dropdown1">
-                            <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-map"></i></button>
+                            <button class="btn btn-floating hoverable white"><i id="rout" class="icon-menuDay ion-map"></i></button>
                         </a>
                     </li>
                     <div id="paramButton">
                         <li>
                             <a href="#" onclick="javascript:openParam();">
-                                <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-gear-a"></i></button>
+                                <button class="btn btn-floating hoverable white"><i id="param" class="icon-menuDay ion-gear-a"></i></button>
                             </a>
                         </li>
                     </div>
                     <div id="returnButton">
                         <li>
                             <a href="#" onclick="javascript:hideParam();">
-                                <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-arrow-return-left"></i></button>
+                                <button class="btn btn-floating hoverable white"><i id="return" class="icon-menuDay ion-arrow-return-left"></i></button>
                             </a>
                         </li>
                     </div>
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable white" id="myTest"><i class="icon icon-menu ion-pinpoint"></i></button>
+                            <button class="btn btn-floating hoverable white" id="myTest"><i id="test" class="icon-menuDay ion-pinpoint"></i></button>
                         </a>
                     </li>
                 </ul>
@@ -64,15 +64,16 @@
         </nav>
         <!--<progress max="100" value="0" id="ft-prog"></progress>-->
         <div id="paramContent">
-            <main class="light-green lighten-2 z-depth-3 aideMain">
-                <p class="aide">
+            <main id="paramMain" class="light-green lighten-2 z-depth-3 aideMain">
+                <p id="paramP" class="aide">
                     - Le premier bouton de l'application est le bouton d'envoi de logs.
                     <br> - Le deuxième bouton permet d'afficher la liste de trajets pour sélectionner et télécharger la tournée voulue.
                     <br> - Le troisième bouton permet d'accéder aux paramètres.
                     <br> - le quatrième bouton permet de se géolocaliser et de centrer la carte sur sa position.
                     <br> - Lorsque l'application n'a pas d'accès à internet il est impossible de télécharger un nouveau trajet.
                     <br>
-                </p>
+                    <button class="btn btn-floating hoverable switch white" id="night"><i class="buttonSwitchDay ion-ios-moon" id="iconSwitchNight"></i></button>
+                    <button class="btn btn-floating hoverable switch white" id="day"><i class="buttonSwitchDay ion-ios-sunny" id="iconSwitchDay"></i></button>
             </main>
         </div>
         <div id="map" class="hoverable">

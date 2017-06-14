@@ -41,13 +41,16 @@ h2{
 	padding-right: 20px;
 }
 
-.icon {
-	font-size: 24px;
-}
-
-.icon-menu {
+.icon-menuDay {
 	margin-top:-11px;
 	color : #689f38 !important;
+	background-color: white !important;
+}
+
+.icon-menuNight {
+	margin-top:-11px;
+	color : #ffffff !important;
+	background-color: #2979ff !important;
 }
 
 .icon-notif {
@@ -71,4 +74,35 @@ h2{
 
 .aide{
 	margin: 2% 2% 2% 2%;
+}
+
+.aideNight{
+	margin: 2% 2% 2% 2%;
+	color: white;
+}
+
+
+.buttonSwitchDay {
+	color : #689f38 !important;
+	background-color: white !important;
+	font-size: 42px !important;
+}
+
+.buttonSwitchNight {
+	color : #ffffff !important;
+	background-color: #2979ff !important;
+	font-size: 42px !important;
+}
+
+.switch{
+	margin: 10px 10px 10px 10px !important;
+	margin-bottom: 0 !important;
+}
+
+.nightMenu{
+	background-color: #2979ff;
+}
+
+.nightParam{
+	background-color: #1565c0;
 }
