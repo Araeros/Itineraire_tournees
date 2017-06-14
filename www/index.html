@@ -40,15 +40,41 @@
                             <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-map"></i></button>
                         </a>
                     </li>
+                    <div id="paramButton">
+                        <li>
+                            <a href="#" onclick="javascript:openParam();">
+                                <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-gear-a"></i></button>
+                            </a>
+                        </li>
+                    </div>
+                    <div id="returnButton">
+                        <li>
+                            <a href="#" onclick="javascript:hideParam();">
+                                <button class="btn btn-floating hoverable white"><i class="icon icon-menu ion-arrow-return-left"></i></button>
+                            </a>
+                        </li>
+                    </div>
                     <li>
                         <a>
-                            <button class="btn btn-floating hoverable white" id="myAsk"><i class="icon icon-menu ion-help"></i></button>
+                            <button class="btn btn-floating hoverable white" id="myTest"><i class="icon icon-menu ion-pinpoint"></i></button>
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
         <!--<progress max="100" value="0" id="ft-prog"></progress>-->
+        <div id="paramContent">
+            <main class="light-green lighten-2 z-depth-3 aideMain">
+                <p class="aide">
+                    - Le premier bouton de l'application est le bouton d'envoi de logs.
+                    <br> - Le deuxième bouton permet d'afficher la liste de trajets pour sélectionner et télécharger la tournée voulue.
+                    <br> - Le troisième bouton permet d'accéder aux paramètres.
+                    <br> - le quatrième bouton permet de se géolocaliser et de centrer la carte sur sa position.
+                    <br> - Lorsque l'application n'a pas d'accès à internet il est impossible de télécharger un nouveau trajet.
+                    <br>
+                </p>
+            </main>
+        </div>
         <div id="map" class="hoverable">
         </div>
     </div>

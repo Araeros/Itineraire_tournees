@@ -25,6 +25,7 @@ function initmap() {
         maxZoom: 15
     }).addTo(map);
     */
+
     map = L.map('map').setView([43.924, 2.1554], 13);
 
     layer = L.tileLayer('img/Tiles/{z}/{x}/{y}.png', {
@@ -58,9 +59,11 @@ function initmap() {
         uploadFile();
     });
 
-    $("#myAsk").click(function(e) {
-        help();
+    $("#myTest").click(function(e) {
+        currentLocationCenter();
     });
+
+    hideParam();
 
     setTimeout(function() { initAppli(); }, tpsInit);
 
@@ -87,11 +90,30 @@ function initmap() {
 
 }
 
-//Fonction d'aide
-function help() {
-    alert(" - Le premier bouton de l'application est le bouton d'envoi de logs.\n" +
-        " - Le deuxième bouton permet d'afficher la liste de trajets pour sélectionner et télécharger la tournée voulue.\n" +
-        " - Lorsque l'application n'a pas d'accès à internet il est impossible de télécharger un nouveau trajet.\n");
+function openParam() {
+
+    let div = document.getElementById("paramButton");
+    div.style.display = "none";
+    div = document.getElementById("map");
+    div.style.display = "none";
+    let divParam = document.getElementById("paramContent");
+    divParam.style.display = "block";
+    divParam = document.getElementById("returnButton");
+    divParam.style.display = "block";
+
+}
+
+
+function hideParam() {
+
+    let divParam = document.getElementById("paramContent");
+    divParam.style.display = "none";
+    divParam = document.getElementById("returnButton");
+    divParam.style.display = "none";
+    let div = document.getElementById("paramButton");
+    div.style.display = "block";
+    div = document.getElementById("map");
+    div.style.display = "block";
 }
 
 //Initialisation de l'application
@@ -120,7 +142,6 @@ function checkFileNotif() {
             console.dir(f);
         }, failReadCheckNotif);
 
-        //This alias is a read-only pointer to the app itself
         window.resolveLocalFileSystemURL("file:///storage/emulated/0/log.txt", gotFileCheckNotif, failReadCheckNotif);
     });
 
@@ -145,8 +166,9 @@ function checkFileNotif() {
     }
 
     function failReadCheckNotif(e) {
-        alert("FileSystem Error");
-        alert(JSON.stringify(e, null, 2));
+        //alert("Fichier introuvable");
+        //alert(JSON.stringify(e, null, 2));
+        createLogFile();
     }
 }
 
@@ -349,7 +371,6 @@ function addLine(string, line) {
 }
 
 function onEachFeature(feature, layer) {
-    //JSON.stringify(whatYouWant)
 
     let p = feature.properties;
     let popContent = p.label + (p.special != undefined ? ', ' + p.special : '');
@@ -611,7 +632,9 @@ function downloadFile() {
         });
 }
 
-function downloadTrip() { //A terme : écrire variable dans un fichier
+//A terme : écrire variable dans un fichier
+
+function downloadTrip() {
     cordovaHTTP.post(server + "/downloadTrip", {
             username: 'rout-ine',
             password: 'extranetrout-ine81',
@@ -727,9 +750,8 @@ function initMapUnziped() {
 
 }
 
-//Décompression(prend 5-10 minutes : zoom 18 -> Il y a des milliers de png à charger)
+//Décompression(prend 5-10 minutes : zoom 18 -> Il y a des milliers de png à charger) AJOUTER SUPPRESSION DE L'ARCHIVE
 function unZip() {
-    //Ne dezip pas si les dossiers contenu dans le zip sont déjà présents dans le dossier de destination (= si dezip effectué auparavant)
     /*
         //Récupération sur la carte SD
         zip.unzip("/storage/sdcard1/Download/Tiles.zip", "/storage/sdcard1/Download", function() {
@@ -825,38 +847,24 @@ function currentLocation() {
             }
             markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-           // map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
-        })/*, { enableHighAccuracy: true } */);
+            // map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
+        }) /*, { enableHighAccuracy: true } */ );
     } else {
-        alert("La géolocalisation n'est pas supportée.");
+        //alert("La géolocalisation n'est pas supportée/interdite.");
     }
 }
 
-var app = {
-    // Application Constructor
-    initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-    },
-
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-    },
-
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+function currentLocationCenter() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((function(position) {
+            if (markerGeo) {
+                markerGeo.remove();
+            }
+            markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+            //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
+            map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
+        }) /*, { enableHighAccuracy: true } */ );
+    } else {
+        //alert("La géolocalisation n'est pas supportée/interdite.");
     }
-};
-
-app.initialize();
+}
