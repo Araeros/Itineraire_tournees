@@ -6,28 +6,20 @@ let tpsVerifTournees = 10001; // temps de vérifs entre chaques demandes du nb d
 let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier pour gérer les notifications
 let tpsEnvoi = 30000; //Teps entres chaques envoie du contenu du fichier au serveur si il y a du contenu
 let layer; //Layer des tuiles de la carte
-let markerGeo; //Marqueur de Geolocalisation
 let map; //Objet map
 let trajet; //compteur de trajets
-let etatInternet;
-checkConnection();
+let etatInternet; // Etat de la connexion , testé à intervalle régulier
+checkConnection(); // Appel de la fonction de vérification de la connexion
 let geojsonFeature = new Object(); //objet JSON des adresses
 let jsonFeatureTrip = new Object(); //Objet JSON des trajets
 let initialisation = 0; // Initialisation de la carte (offline = chargée sans connexion/ online = chargée sous couverture)
+let state = 'day'; // Etat visuel de l'application ('day' ou 'night')
 
 function initmap() {
-    /*
-    map = L.map('map').setView([43.924, 2.1554], 13);
-
-    //layer = L.tileLayer.mbTiles('/storage/emulated/0/Download/map.mbtiles', {
-    layer = L.tileLayer.mbTiles('img/map.mbtiles', {
-        minZoom: 11,
-        maxZoom: 15
-    }).addTo(map);
-    */
 
     map = L.map('map').setView([43.924, 2.1554], 13);
 
+    //Ici on charge une petite map, pour laisser le temps à l'application de décompresser l'archive et permettre d'avoir un fond de carte en attendant.
     layer = L.tileLayer('img/Tiles/{z}/{x}/{y}.png', {
         //layer = L.tileLayer('/storage/emulated/0/Download/Tiles/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy <a href="http://mapbox.com">Mapbox</a>',
@@ -35,17 +27,8 @@ function initmap() {
         maxZoom: 13
     }).addTo(map);
 
-    /*
-        //Notification
-        $("#myNotification").click(function(e) {
-            //Emet le son chosi par défaut des notifications (paramètre = nombre de fois)
-            navigator.notification.beep(1);
-            // Vibre le temps choisi (paramètre = tmp en ms)
-            navigator.vibrate(500);
-        });
-    */
-
     //Télécharger nouvelle map
+    /* Map Indisponible sur le serveur, cette fonction est donc innutile
     $("#myDownload").click(function(e) {
         if (etatInternet == 'none') {
             alert('Aucune connection détectée');
@@ -54,31 +37,38 @@ function initmap() {
             //Télécharger la nouvelle map
         }
     });
-
+    */
+    //Action Bouton Avion en Papier
     $("#sendLogs").click(function(e) {
         uploadFile();
     });
 
-    $("#myTest").click(function(e) {
-        currentLocationCenter();
-    });
-
+    //Action Bouton soleil
     $("#day").click(function(e) {
         switchDay();
     });
 
+    //Action Bouton lune
     $("#night").click(function(e) {
         switchNight();
     });
 
-    hideParam();
+    hideParam(); //Fonction cachant le bouton retour et le contenu de la fenêtre param
+    hideLoader(); //Fonction cachant le loader
 
+    //Temps après lequel la nouvelle map se dezip et s'initialise
     setTimeout(function() { initAppli(); }, tpsInit);
 
-    setInterval(function() { currentLocation(); }, tpsGeoloc);
+    //Intervalle de géolocalisation de l'appareil
+    //setInterval(function() { currentLocation(); }, tpsGeoloc);
+    setTimeout(function() { currentLocation(); }, tpsGeoloc);
 
-    setInterval(function() { checkConnection(); }, tpsCheckConnection);
+    //Intervalle de vérficatio nde la connexion
+    setInterval(function() {
+        checkConnection();
+    }, tpsCheckConnection);
 
+    // Intervalle de vérification du nobmre de tournées sur le serveur si l'appli a été démarrée sans internet
     setInterval(function() {
         if (initialisation == 'offline') {
             if (etatInternet != 'none') {
@@ -88,25 +78,32 @@ function initmap() {
         }
     }, tpsVerifTournees);
 
+    //Intervalle de vérification du fichier pour notifier l'utilisateur
     setInterval(function() {
         checkFileNotif();
     }, tpsNotif);
 
+    //Intervalle de la vérification du fichier pour l'envoi du fichier au serveur
     setInterval(function() {
         checkFileEnvoi();
     }, tpsEnvoi);
 
 }
 
+function hideLoader() {
+    let divLoad = document.getElementById("dataLoader");
+    divLoad.style.display = "none";
+}
 
+//Mode jour de l'application
 function switchDay() {
+    state = 'day';
     document.getElementById("iconSwitchDay").className = "buttonSwitchDay ion-ios-sunny";
     document.getElementById("iconSwitchNight").className = "buttonSwitchDay ion-ios-moon";
     document.getElementById("notif").className = "icon-menuDay ion-paper-airplane";
     document.getElementById("rout").className = "icon-menuDay ion-map";
     document.getElementById("param").className = "icon-menuDay ion-gear-a";
     document.getElementById("return").className = "icon-menuDay ion-arrow-return-left";
-    document.getElementById("test").className = "icon-menuDay ion-pinpoint";
     document.getElementById("body").className = "light-green";
     document.getElementById("dropdown1").className = "dropdown-content";
     document.getElementById("menu").className = "nav-wrapper light-green";
@@ -114,14 +111,15 @@ function switchDay() {
     document.getElementById("paramP").className = "aide";
 }
 
+//Mode nuit de l'application
 function switchNight() {
+    state = 'night';
     document.getElementById("iconSwitchDay").className = "buttonSwitchNight ion-ios-sunny";
     document.getElementById("iconSwitchNight").className = "buttonSwitchNight ion-ios-moon";
     document.getElementById("notif").className = "icon-menuNight ion-paper-airplane";
     document.getElementById("rout").className = "icon-menuNight ion-map";
     document.getElementById("param").className = "icon-menuNight ion-gear-a";
     document.getElementById("return").className = "icon-menuNight ion-arrow-return-left";
-    document.getElementById("test").className = "icon-menuNight ion-pinpoint";
     document.getElementById("body").className = "blue darken-4";
     document.getElementById("dropdown1").className = "dropdown-content nightMenu";
     document.getElementById("menu").className = "nav-wrapper blue darken-4";
@@ -129,9 +127,14 @@ function switchNight() {
     document.getElementById("paramP").className = "aideNight";
 }
 
+//Affichage fenêtre paramètres
 function openParam() {
 
     let div = document.getElementById("paramButton");
+    div.style.display = "none";
+    div = document.getElementById("sendButton");
+    div.style.display = "none";
+    div = document.getElementById("menuButton");
     div.style.display = "none";
     div = document.getElementById("map");
     div.style.display = "none";
@@ -142,7 +145,7 @@ function openParam() {
 
 }
 
-
+//Masquage fenêtre paramètres
 function hideParam() {
 
     let divParam = document.getElementById("paramContent");
@@ -153,6 +156,10 @@ function hideParam() {
     div.style.display = "block";
     div = document.getElementById("map");
     div.style.display = "block";
+    div = document.getElementById("sendButton");
+    div.style.display = "block";
+    div = document.getElementById("menuButton");
+    div.style.display = "block";
 }
 
 //Initialisation de l'application
@@ -161,6 +168,16 @@ function initAppli() {
         unZip();
         initMapUnziped();
         initialisation = 'offline';
+
+        let dropdown = $('#dropdown1');
+        let link = $('<a href="#!">').text('Tournée Locale');
+        link.click(function(e) {
+            readAddresses();
+            readTrip();
+        });
+
+        dropdown.append($('<li>').append(link));
+
         alert('Map Initialisée, nécessite une connexion pour charger les tournées');
     } else {
         getTour();
@@ -193,9 +210,17 @@ function checkFileNotif() {
                 console.log(this.result);
                 var checkLog = JSON.parse(this.result);
                 if (JSON.stringify(checkLog) != '{}') {
-                    document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane icon-notif';
+                    if (state == 'day')
+                        document.getElementById("notif").className = 'icon-menuDay ion-paper-airplane icon-notif';
+                    else {
+                        document.getElementById("notif").className = 'icon-menuNight ion-paper-airplane icon-notif';
+                    }
                 } else {
-                    document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane';
+                    if (state == 'day') {
+                        document.getElementById("notif").className = 'icon-menuDay ion-paper-airplane';
+                    } else {
+                        document.getElementById("notif").className = 'icon-menuNight ion-paper-airplane';
+                    }
                 }
             }
             reader.readAsText(file);
@@ -271,7 +296,11 @@ function uploadFile() {
         });
     });
 
-    document.getElementById("notif").className = 'icon icon-menu ion-paper-airplane';
+    if (state == 'day') {
+        document.getElementById("notif").className = 'icon-menuDay ion-paper-airplane';
+    } else {
+        document.getElementById("notif").className = 'icon-menuNight ion-paper-airplane';
+    }
 
 }
 
@@ -296,7 +325,6 @@ function readLog(callback) {
             reader.onloadend = function(e) {
                 console.log(this.result);
                 logFile = JSON.parse(this.result);
-                alert(JSON.stringify(logFile, null, 2));
                 callback();
                 //document.querySelector("#readFile").innerHTML = this.result;
             }
@@ -314,11 +342,12 @@ function failReadLog(e) {
 
 //récupération nombre de trajet
 function getTour() {
+
     document.addEventListener('deviceready', function() {
         cordovaHTTP.post(server + "/getNumberOfTours", {
             username: 'rout-ine',
             password: 'extranetrout-ine81'
-        }, { Authorization: "OAuth2: token" }, function(response) {
+        }, { Authorization: "access" }, function(response) {
             // prints 200
             console.log(response.status);
             try {
@@ -333,10 +362,10 @@ function getTour() {
 
                 for (let i = 1; i <= nbTour; i++) {
 
-                    let link = $('<a id="myTruck' + i + '" href="#!">').text('Tournée' + i);
+                    let link = $('<a href="#!">').text('Tournée' + i);
 
                     if (i == nbTour) {
-                        link = $('<a id="myTruck' + i + '" href="#!">').text('Tournée Extérieur Albi');
+                        link = $('<a href="#!">').text('Tournée Extérieur Albi');
                     }
 
                     link.click(function(e) {
@@ -345,8 +374,13 @@ function getTour() {
                         } else {
                             trajet = i - 1;
                         }
-                        downloadFile();
-                        downloadTrip();
+                        if (etatInternet != 'none') {
+                            downloadFile();
+                            downloadTrip();
+                        } else {
+                            readAddresses();
+                            readTrip();
+                        }
                     });
 
                     dropdown.append($('<li>').append(link));
@@ -441,16 +475,25 @@ function onEachFeature(feature, layer) {
             popContent = addLine(popContent, label);
             n = '<FONT color="red"><b>' + b.note + '</b></FONT>';
             popContent = addLine(popContent, n);
+            /*
+                        let div_benef = L.DomUtil.create('div');
+
+                        div_popup.innerHTML = '<ul><li id="inline"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
+                            '<li id="inline"><a href="#" class="cancel"><i class="icon ion-android-cancel"></i></a></li>';
+
+                        div_popup.innerHTML = addLine(popContent, div_popup.innerHTML);
+                        layer.bindPopup(div_popup);
+
+            */
         }
     }
-    //Si l'objet contient une note -> l'afficher
 
     let div_popup = L.DomUtil.create('div');
 
-    div_popup.innerHTML = '<ul><li id="inline"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
-        '<li id="inline"><a href="#" class="cancel"><i class="icon ion-android-cancel"></i></a></li>' +
+    div_popup.innerHTML = '<ul><li class="inline1"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
+        '<li class="inline2"><a href="#" class="cancel"><i class="icon ion-android-cancel"></i></a></li>' +
         '<input id="msg">' +
-        '<a href="#" class="form"><i class="icon ion-clipboard"></i></a></ul>' +
+        '<center><a href="#" class="form"><i class="icon ion-paper-airplane"></i></a></ul></center>' +
         '<p id="retour"></p>';
 
     div_popup.innerHTML = addLine(popContent, div_popup.innerHTML);
@@ -524,7 +567,7 @@ function clearLog() {
     });
 }
 
-/* PLUS UTILISEES -> Remplacée par post et parsage dans une variable pour authentification
+
 //Lecture d'un fichier adresses
 function readAddresses() {
 
@@ -534,7 +577,7 @@ function readAddresses() {
             console.dir(f);
         }, failReadAddresses);
         //This alias is a read-only pointer to the app itself
-        window.resolveLocalFileSystemURL("file:///storage/emulated/0/Download/tourAddresses" + trajet + ".json", gotFileAddresses, failReadAddresses);
+        window.resolveLocalFileSystemURL("file:///storage/emulated/0/tourAddresses.json", gotFileAddresses, failReadAddresses);
     });
 }
 
@@ -553,13 +596,8 @@ function gotFileAddresses(fileEntry) {
 
             geojsonFeature = JSON.parse(this.result);
             //document.querySelector("#readFile").innerHTML = this.result;
-            if (trajet == 'Outside') {
-                let numTournee = 'Extérieur Albi';
-                alert('Tournée ' + numTournee + ' sélectionnée.');
-            } else {
-                let numTournee = trajet + 1;
-                alert('Tournée N°' + numTournee + ' sélectionnée.');
-            }
+            alert('Tournée téléchargée sélectionnée.');
+
 
             truck();
         }
@@ -580,7 +618,7 @@ function readTrip() {
         }, failReadTrip);
 
         //This alias is a read-only pointer to the app itself
-        window.resolveLocalFileSystemURL("file:///storage/emulated/0/Download/tourTrip" + trajet + ".json", gotFileTrip, failReadTrip);
+        window.resolveLocalFileSystemURL("file:///storage/emulated/0/tourTrip.json", gotFileTrip, failReadTrip);
 
     });
 }
@@ -607,7 +645,7 @@ function gotFileTrip(fileEntry) {
 
 
 }
-*/
+
 
 //Formulaire de gestion des erreurs sur les markers
 function form(varX) {
@@ -616,6 +654,7 @@ function form(varX) {
     // recupère la valeur de l'input id="msg"
     varX = document.getElementById("msg").value;
     if (varX) {
+
         text = "Message '" + varX + "' enregistré !";
     } else {
         text = "Message enregistré !";
@@ -625,8 +664,12 @@ function form(varX) {
     return varX;
 }
 
-// Téléchargement 2.0 ! 
 
+function registerFile() {
+
+}
+
+// Téléchargement 2.0 !
 function downloadFile() {
     cordovaHTTP.post(server + "/downloadAddresses", {
             username: 'rout-ine',
@@ -645,6 +688,16 @@ function downloadFile() {
                     alert('Tournée N°' + numTournee + ' sélectionnée.');
                 }
                 notifySuccess();
+                document.addEventListener('deviceready', function() {
+                    var Fichier = "tourAddresses.json";
+                    var Texte = JSON.stringify(geojsonFeature, null, 2);
+
+                    fail = function(e) { alert(JSON.stringify(e)); }
+                    gotFileWriter = function(writer) { writer.write(Texte); };
+                    gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
+                    gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
+                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+                });
                 truck();
             } catch (e) {
                 console.error("JSON parsing error");
@@ -670,6 +723,16 @@ function downloadTrip() {
             try {
                 jsonFeatureTrip = JSON.parse(response.data);
                 notifySuccess();
+                document.addEventListener('deviceready', function() {
+                    var Fichier = "tourTrip.json";
+                    var Texte = JSON.stringify(jsonFeatureTrip, null, 2);
+
+                    fail2 = function(e) { alert(JSON.stringify(e)); }
+                    gotFileWriter2 = function(writer) { writer.write(Texte); };
+                    gotFileEntry2 = function(fileEntry) { fileEntry.createWriter(gotFileWriter2, fail2); };
+                    gotFS2 = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry2, fail2); };
+                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS2, fail2);
+                });
                 truck();
             } catch (e) {
                 console.error("JSON parsing error");
@@ -682,81 +745,6 @@ function downloadTrip() {
             alert(JSON.stringify(response.error, null, 2));
         });
 }
-
-
-//Téléchargement (Supprime le fichier si déjà existant et le remplace)
-/*
-function downloadFile() {
-    document.addEventListener('deviceready', function() {
-        let fileTransfer = new FileTransfer();
-        let uri = encodeURI(server + "/downloadAddresses?num=" + trajet);
-        //DL sur la carte SD
-        //fileURL = "file:///storage/sdcard1/Download/Test/cordova_bot.png";
-        //DL sur la mémoire interne
-        let fileURL = "file:///storage/emulated/0/Download/tourAddresses" + trajet + ".json";
-
-        var options = new FileUploadOptions();
-        options.chunkedMode = false;
-        options.headers = {
-            Connection: "close"
-        };
-
-        fileTransfer.download(
-            uri,
-            fileURL,
-            function(entry) {
-                notifySuccess();
-                readAddresses();
-            },
-            function(error) {
-                alert("Erreur source" + error.source);
-                alert("Erreur cible" + error.target);
-                alert("Erreur code" + error.code);
-                notifyError();
-            },
-            false, {
-                headers: {
-                    "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-                }
-            }
-        );
-
-        let fileTransferTrip = new FileTransfer();
-        uri = encodeURI(server + "/downloadTrip?num=" + trajet);
-        //DL sur la carte SD
-        //fileURL = "file:///storage/sdcard1/Download/Test/cordova_bot.png";
-        //DL sur la mémoire interne
-        fileURL = "file:///storage/emulated/0/Download/tourTrip" + trajet + ".json";
-
-        var options = new FileUploadOptions();
-        options.chunkedMode = false;
-        options.headers = {
-            Connection: "close"
-        };
-
-        fileTransferTrip.download(
-            uri,
-            fileURL,
-            function(entry) {
-                notifySuccess();
-                readTrip();
-            },
-            function(error) {
-                alert("Erreur source" + error.source);
-                alert("Erreur cible" + error.target);
-                alert("Erreur code" + error.code);
-                notifyError();
-            },
-            false, {
-                headers: {
-                    "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-                }
-            }
-        );
-    });
-}
-*/
-
 
 //Réinitialisation carte
 function initMapUnziped() {
@@ -786,9 +774,15 @@ function unZip() {
     */
     //Récupération Mémoire interne
 
+    let divLoad = document.getElementById("dataLoader");
+    divLoad.style.display = "block";
+
     zip.unzip("/storage/emulated/0/Download/Tiles.zip", "/storage/emulated/0/Download", function() {
         notifyZip();
+        divLoad = document.getElementById("dataLoader");
+        divLoad.style.display = "none";
     });
+
 
 }
 
@@ -864,32 +858,29 @@ function reset() {
 }
 
 
-//Géolocalisation
-function currentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((function(position) {
-            if (markerGeo) {
-                markerGeo.remove();
-            }
-            markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-            // map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
-        }) /*, { enableHighAccuracy: true } */ );
-    } else {
-        //alert("La géolocalisation n'est pas supportée/interdite.");
-    }
+function popMarker(lat, lng) {
+    let markerGeo = L.marker([lat, lng]).addTo(map);
 }
 
-function currentLocationCenter() {
+//Géolocalisation
+function currentLocation() {
+
+    function onError(error) {
+        alert('code: ' + error.code + '\n' +
+            'message: ' + error.message + '\n');
+    }
+
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((function(position) {
-            if (markerGeo) {
-                markerGeo.remove();
-            }
-            markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-            map.setView([position.coords.latitude, position.coords.longitude]) //Centre la carte sur votre position actuelle
-        }) /*, { enableHighAccuracy: true } */ );
+        navigator.geolocation.watchPosition(function(position) {
+            //alert('Latitude: ' + position.coords.latitude + '\nLongitude: ' + position.coords.longitude);
+            popMarker(position.coords.latitude, position.coords.longitude);
+        }, onError, { timeout: 30000, enableHighAccuracy: true });
+
+
+
+        //let markerGeo = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+        //marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
+
     } else {
         //alert("La géolocalisation n'est pas supportée/interdite.");
     }

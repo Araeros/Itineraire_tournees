@@ -1,74 +1,115 @@
-#map { 
-	height: 700px; 
+#map {
+    height: 700px;
 }
 
 #bandeau {
-	padding-bottom:0.5% !important;
+    padding-bottom: 0.5% !important;
 }
 
 #logo {
-	margin-right:5px;
-	margin-top:5px;
+    margin-right: 5px;
+    margin-top: 5px;
 }
 
 .margin {
-    margin-left :2% !important;
-	margin-right :2% !important;
-	margin-top : 1% !important;
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+    margin-top: 1% !important;
 }
 
 #mapData {
-	text-align : center;
+    text-align: center;
 }
 
-.txtArea{
-	margin-left:3%;
-	margin-right:3%;
-	border-radius: 10px;
+.txtArea {
+    margin-left: 3%;
+    margin-right: 3%;
+    border-radius: 10px;
 }
 
-h2{
-	text-align:center;
+h2 {
+    text-align: center;
 }
 
 .form {
-	margin-right:5px;
+    margin-right: 5px;
 }
 
-#inline{
-	display: inline;
-	padding-left: 20px;
-	padding-right: 20px;
+.inline1 {
+    display: inline;
+    padding-right: 20px;
 }
 
-.icon {
-	font-size: 24px;
+.inline2 {
+    display: inline;
+    padding-left: 20px;
 }
 
-.icon-menu {
-	margin-top:-11px;
-	color : #689f38 !important;
+.icon-menuDay {
+    margin-top: -11px;
+    color: #689f38 !important;
+    background-color: white !important;
+}
+
+.icon-menuNight {
+    margin-top: -11px;
+    color: #ffffff !important;
+    background-color: #2979ff !important;
 }
 
 .icon-notif {
-	color : #ffffff !important;
-	background-color: red !important; 
+    color: #ffffff !important;
+    background-color: red !important;
 }
 
-#ft-prog{
-	width:96%;
-	margin-left:2%;
-	margin-top: 5px;
+#ft-prog {
+    width: 96%;
+    margin-left: 2%;
+    margin-top: 5px;
 }
 
-.aideMain{
-	border-style: solid;
-	border-color: #777777;
-	border-width: 1px;
-	border-radius: 10px;
-	margin: 2% 2% 2% 2%;
+.aideMain {
+    border-style: solid;
+    border-color: #777777;
+    border-width: 1px;
+    border-radius: 10px;
+    margin: 2% 2% 2% 2%;
 }
 
-.aide{
-	margin: 2% 2% 2% 2%;
+.aide {
+    margin: 2% 2% 2% 2%;
+}
+
+.aideNight {
+    margin: 2% 2% 2% 2%;
+    color: white;
+}
+
+.icon {
+    font-size: 24px !important;
+}
+
+.buttonSwitchDay {
+    color: #689f38 !important;
+    background-color: white !important;
+    font-size: 42px !important;
+}
+
+.buttonSwitchNight {
+    color: #ffffff !important;
+    background-color: #2979ff !important;
+    font-size: 42px !important;
+}
+
+.switch {
+    margin: 10px 10px 10px 10px !important;
+    margin-bottom: 0 !important;
+}
+
+.nightMenu {
+    background-color: #2979ff;
+}
+
+.nightParam {
+    background-color: #1565c0;
 }

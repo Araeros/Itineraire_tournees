@@ -23,6 +23,7 @@
 </head>
 
 <body id="body" class="light-green" onload="initmap();">
+    <!--Conteneur du menu déroulant, il va se remplir avec la fonction getTour() du code javascript-->
     <ul id="dropdown1" class="dropdown-content">
     </ul>
     <div>
@@ -30,16 +31,20 @@
             <div id="menu" class="nav-wrapper light-green">
                 <a href="http://www.mairie-albi.fr/" class="brand-logo right"><img src="img/logo.png" class="circle hoverable" id="logo" width="50" height="50"></a>
                 <ul>
-                    <li>
-                        <a>
-                            <button class="btn btn-floating hoverable white" id="sendLogs"><i id="notif" class="icon-menuDay ion-paper-airplane"></i></button>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-button" href="#!" data-activates="dropdown1">
-                            <button class="btn btn-floating hoverable white"><i id="rout" class="icon-menuDay ion-map"></i></button>
-                        </a>
-                    </li>
+                    <div id="sendButton">
+                        <li>
+                            <a>
+                                <button class="btn btn-floating hoverable white" id="sendLogs"><i id="notif" class="icon-menuDay ion-paper-airplane"></i></button>
+                            </a>
+                        </li>
+                    </div>
+                    <div id="menuButton">
+                        <li>
+                            <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                                <button class="btn btn-floating hoverable white"><i id="rout" class="icon-menuDay ion-map"></i></button>
+                            </a>
+                        </li>
+                    </div>
                     <div id="paramButton">
                         <li>
                             <a href="#" onclick="javascript:openParam();">
@@ -54,15 +59,16 @@
                             </a>
                         </li>
                     </div>
-                    <li>
-                        <a>
-                            <button class="btn btn-floating hoverable white" id="myTest"><i id="test" class="icon-menuDay ion-pinpoint"></i></button>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </nav>
+        <center>
+            <div class="progress" id="dataLoader">
+                <div class="indeterminate"></div>
+            </div>
+        </center>
         <!--<progress max="100" value="0" id="ft-prog"></progress>-->
+        <!--Contenu de la page paramètre-->
         <div id="paramContent">
             <main id="paramMain" class="light-green lighten-2 z-depth-3 aideMain">
                 <p id="paramP" class="aide">
