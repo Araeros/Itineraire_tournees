@@ -62,11 +62,6 @@
                 </ul>
             </div>
         </nav>
-        <center>
-            <div class="progress" id="dataLoader">
-                <div class="indeterminate"></div>
-            </div>
-        </center>
         <!--<progress max="100" value="0" id="ft-prog"></progress>-->
         <!--Contenu de la page paramètre-->
         <div id="paramContent">
@@ -75,11 +70,15 @@
                     - Le premier bouton de l'application est le bouton d'envoi de logs.
                     <br> - Le deuxième bouton permet d'afficher la liste de trajets pour sélectionner et télécharger la tournée voulue.
                     <br> - Le troisième bouton permet d'accéder aux paramètres.
-                    <br> - le quatrième bouton permet de se géolocaliser et de centrer la carte sur sa position.
                     <br> - Lorsque l'application n'a pas d'accès à internet il est impossible de télécharger un nouveau trajet.
+                    <br> - Les boutons "Jour/Nuit" (les 2 premiers) permettent de changer les courleurs de l'application
+                    <br> - Le bouton "Téléchargement" (le 3ème) permet de télécharger les tournées disponibles sur le serveur si l'application a accès à internet
+                    <br> - Le bouton "Refresh" (le 4ème) permet de recharger le menu pour afficher sa version hors connexion
                     <br>
                     <button class="btn btn-floating hoverable switch white" id="night"><i class="buttonSwitchDay ion-ios-moon" id="iconSwitchNight"></i></button>
                     <button class="btn btn-floating hoverable switch white" id="day"><i class="buttonSwitchDay ion-ios-sunny" id="iconSwitchDay"></i></button>
+                    <button class="btn btn-floating hoverable switch white" id="getTour"><i id="downloadButton" class="buttonSwitchDayMedium ion-archive"></i></button>
+                    <button class="btn btn-floating hoverable switch white" id="initOfflineMenu"><i id="initOfflineMenuIcon" class="buttonSwitchDayMedium ion-loop"></i></button>
             </main>
         </div>
         <div id="map" class="hoverable">

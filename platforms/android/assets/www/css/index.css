@@ -101,15 +101,27 @@ h2 {
     font-size: 42px !important;
 }
 
+.buttonSwitchDayMedium {
+    color: #689f38 !important;
+    background-color: white !important;
+    font-size: 28px !important;
+}
+
+.buttonSwitchNightMedium {
+    color: #ffffff !important;
+    background-color: #2979ff !important;
+    font-size: 28px !important;
+}
+
 .switch {
     margin: 10px 10px 10px 10px !important;
     margin-bottom: 0 !important;
 }
 
 .nightMenu {
-    background-color: #2979ff;
+    background-color: #0052de;
 }
 
 .nightParam {
-    background-color: #1565c0;
+    background-color: #0063d5;
 }

@@ -1,31 +1,37 @@
-let server = 'http://10.1.0.205:9226';
+let server = 'http://10.1.0.205:9226'; // Adresse du serveur
+let username = 'rout-ine'; // Nom d'utilisateur pour se connecter au serveur
+let password = 'extranetrout-ine81'; // Mot de passe pour se connecter au serveur
 let tpsInit = 100; // Initialisation de l'appli (compter nb tournée/dezip/initMap) après X ms.
 let tpsGeoloc = 2000; //Temps entre chaques géolocalisations
 let tpsCheckConnection = 10000; //temps entre chaques vérifications de la connexion 
-let tpsVerifTournees = 10001; // temps de vérifs entre chaques demandes du nb de tournées au serveur
+let tpsVerifTournees = 10000; // temps de vérifs entre chaques demandes du nb de tournées au serveur
 let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier pour gérer les notifications
 let tpsEnvoi = 30000; //Teps entres chaques envoie du contenu du fichier au serveur si il y a du contenu
 let layer; //Layer des tuiles de la carte
 let map; //Objet map
-let trajet; //compteur de trajets
+let markerGeo; // marker de géolocalisation
+let trajet; //compteur de trajets ( création du menu )
 let etatInternet; // Etat de la connexion , testé à intervalle régulier
+let messageNotif; // Message d'une notif
 checkConnection(); // Appel de la fonction de vérification de la connexion
 let geojsonFeature = new Object(); //objet JSON des adresses
 let jsonFeatureTrip = new Object(); //Objet JSON des trajets
 let initialisation = 0; // Initialisation de la carte (offline = chargée sans connexion/ online = chargée sous couverture)
 let state = 'day'; // Etat visuel de l'application ('day' ou 'night')
 
+
+// Fonction se lançant au chargement du "body" de la page
 function initmap() {
 
     map = L.map('map').setView([43.924, 2.1554], 13);
 
-    //Ici on charge une petite map, pour laisser le temps à l'application de décompresser l'archive et permettre d'avoir un fond de carte en attendant.
     layer = L.tileLayer('img/Tiles/{z}/{x}/{y}.png', {
-        //layer = L.tileLayer('/storage/emulated/0/Download/Tiles/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy <a href="http://mapbox.com">Mapbox</a>',
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://openstreetmap.fr/">OpenStreetMap</a>',
         minZoom: 13,
         maxZoom: 13
     }).addTo(map);
+
+
 
     //Télécharger nouvelle map
     /* Map Indisponible sur le serveur, cette fonction est donc innutile
@@ -53,8 +59,19 @@ function initmap() {
         switchNight();
     });
 
+    //Action Bouton Download
+    $("#getTour").click(function(e) {
+        getTour();
+    });
+
+    //Initialisation du menu en mode Hors connexion
+    $("#initOfflineMenu").click(function(e) {
+        if (etatInternet == 'none') {
+            initOfflineMenu();
+        }
+    });
+
     hideParam(); //Fonction cachant le bouton retour et le contenu de la fenêtre param
-    hideLoader(); //Fonction cachant le loader
 
     //Temps après lequel la nouvelle map se dezip et s'initialise
     setTimeout(function() { initAppli(); }, tpsInit);
@@ -70,7 +87,9 @@ function initmap() {
 
     // Intervalle de vérification du nobmre de tournées sur le serveur si l'appli a été démarrée sans internet
     setInterval(function() {
+        //Test si l'application a été lancé sous connexion ou non
         if (initialisation == 'offline') {
+            // Si elle a été initialisé sous connexion et qu'elle a accès à internet : telechargement des tournees 
             if (etatInternet != 'none') {
                 getTour();
                 initialisation = 'effectuée';
@@ -90,12 +109,8 @@ function initmap() {
 
 }
 
-function hideLoader() {
-    let divLoad = document.getElementById("dataLoader");
-    divLoad.style.display = "none";
-}
-
 //Mode jour de l'application
+// Récupère tous les éléments graphiques pour changer leurs classes et donc leurs couleurs
 function switchDay() {
     state = 'day';
     document.getElementById("iconSwitchDay").className = "buttonSwitchDay ion-ios-sunny";
@@ -109,9 +124,12 @@ function switchDay() {
     document.getElementById("menu").className = "nav-wrapper light-green";
     document.getElementById("paramMain").className = "z-depth-3 aideMain light-green lighten-2";
     document.getElementById("paramP").className = "aide";
+    document.getElementById("downloadButton").className = "buttonSwitchDayMedium ion-archive"
+    document.getElementById("initOfflineMenuIcon").className = "buttonSwitchDayMedium ion-loop"
 }
 
 //Mode nuit de l'application
+// Récupère tous les éléments graphiques pour changer leurs classes et donc leurs couleurs
 function switchNight() {
     state = 'night';
     document.getElementById("iconSwitchDay").className = "buttonSwitchNight ion-ios-sunny";
@@ -125,9 +143,12 @@ function switchNight() {
     document.getElementById("menu").className = "nav-wrapper blue darken-4";
     document.getElementById("paramMain").className = "z-depth-3 aideMain nightParam";
     document.getElementById("paramP").className = "aideNight";
+    document.getElementById("downloadButton").className = "buttonSwitchNightMedium ion-archive"
+    document.getElementById("initOfflineMenuIcon").className = "buttonSwitchNightMedium ion-loop"
 }
 
 //Affichage fenêtre paramètres
+// Récupère tous les éléments graphiques pour passer de l'affichage de la fenêtre principale aux paramètres
 function openParam() {
 
     let div = document.getElementById("paramButton");
@@ -146,6 +167,7 @@ function openParam() {
 }
 
 //Masquage fenêtre paramètres
+// Récupère tous les éléments graphiques pour passer de l'affichage des paramètres à la fenêtre principale
 function hideParam() {
 
     let divParam = document.getElementById("paramContent");
@@ -162,26 +184,36 @@ function hideParam() {
     div.style.display = "block";
 }
 
+//Init Offline menu
+// Permet de charger le menu de l'application hors connexion
+function initOfflineMenu() {
+    let dropdown = $('#dropdown1');
+    let link = $('<a href="#!">').text('Tournée Locale');
+    link.click(function(e) {
+        readAddresses();
+        readTrip();
+    });
+    dropdown.append($('<li>').append(link));
+}
+
 //Initialisation de l'application
 function initAppli() {
     if (etatInternet == 'none') {
+        //Decompression de l'archive map
         unZip();
+        //Initialisation map décompressé
         initMapUnziped();
         initialisation = 'offline';
-
-        let dropdown = $('#dropdown1');
-        let link = $('<a href="#!">').text('Tournée Locale');
-        link.click(function(e) {
-            readAddresses();
-            readTrip();
-        });
-
-        dropdown.append($('<li>').append(link));
+        // Initialisation du menu offline
+        initOfflineMenu();
 
         alert('Map Initialisée, nécessite une connexion pour charger les tournées');
     } else {
+        // Initialisation menu online
         getTour();
+        //Decompression de l'archive map
         unZip();
+        //Initialisation map décompressé
         initMapUnziped();
         initialisation = 'effectuée';
         alert('Map initialisée, tournées chargées');
@@ -189,9 +221,10 @@ function initAppli() {
 }
 
 
-//Vérifie si il y a du contenu dans le fichier 'log.txt'
+//Vérifie si il y a du contenu dans le fichier 'log.txt' pour la gestion des notifications
 function checkFileNotif() {
 
+    // Lis le contenu du fichier log.txt
     document.addEventListener('deviceready', function() {
 
         window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
@@ -201,7 +234,7 @@ function checkFileNotif() {
         window.resolveLocalFileSystemURL("file:///storage/emulated/0/log.txt", gotFileCheckNotif, failReadCheckNotif);
     });
 
-
+    // lis le fichier, fais la comparaison et 
     function gotFileCheckNotif(fileEntry) {
         fileEntry.file(function(file) {
             reader = new FileReader();
@@ -229,6 +262,7 @@ function checkFileNotif() {
 
     }
 
+    //Erreur lecture
     function failReadCheckNotif(e) {
         //alert("Fichier introuvable");
         //alert(JSON.stringify(e, null, 2));
@@ -236,7 +270,7 @@ function checkFileNotif() {
     }
 }
 
-//Vérifie si il y a du contenu dans le fichier 'log.txt'
+//Vérifie si il y a du contenu dans le fichier 'log.txt' pour l'envoyer au serveur
 function checkFileEnvoi() {
 
     document.addEventListener('deviceready', function() {
@@ -249,7 +283,7 @@ function checkFileEnvoi() {
         window.resolveLocalFileSystemURL("file:///storage/emulated/0/log.txt", gotFileCheckEnvoi, failReadCheckEnvoi);
     });
 
-
+    //Vérifie, compare, test la connexion pour envoyer le fichier
     function gotFileCheckEnvoi(fileEntry) {
         fileEntry.file(function(file) {
             reader = new FileReader();
@@ -270,7 +304,7 @@ function checkFileEnvoi() {
 
 
     }
-
+    // Erreur lecture 
     function failReadCheckEnvoi(e) {
         alert("FileSystem Error");
         alert(JSON.stringify(e, null, 2));
@@ -279,15 +313,16 @@ function checkFileEnvoi() {
 
 //Envoyer un fichier au serveur
 function uploadFile() {
-
     document.addEventListener('deviceready', function() {
+        //Authentification au serveur
         cordovaHTTP.uploadFile(server + "/tabletLogsUpload", {
-            username: 'rout-ine',
-            password: 'extranetrout-ine81'
+            username: username,
+            password: password
 
         }, { Authorization: "OAuth2: token" }, "file:///storage/emulated/0/log.txt", "file", function(response) {
             //alert('Statut: ' + response.status);
             //alert('Message: ' + response.data);
+            //Réponse positive du verveur -> Suppression du fichier de Log
             clearLog();
         }, function(response) {
             alert('Statut: ' + response.status);
@@ -296,6 +331,7 @@ function uploadFile() {
         });
     });
 
+    //Gestion couleur de l'icone selon jour et nuit
     if (state == 'day') {
         document.getElementById("notif").className = 'icon-menuDay ion-paper-airplane';
     } else {
@@ -325,6 +361,7 @@ function readLog(callback) {
             reader.onloadend = function(e) {
                 console.log(this.result);
                 logFile = JSON.parse(this.result);
+                // Lis le contenu du fichier, ajoute le nouveau contenu et réécrit le tout dans le fichier (permet l'écriture sans suppression)
                 callback();
                 //document.querySelector("#readFile").innerHTML = this.result;
             }
@@ -334,32 +371,35 @@ function readLog(callback) {
 
 }
 
+// Erreur lecture -> généralement causée par la suppresion du fichier de log -> création du fichier lors de l'erreur
 function failReadLog(e) {
     alert("Erreur de lecture: Création d'un fichier log.txt");
     createLogFile();
 }
 
 
-//récupération nombre de trajet
+//Récupère le nombre de trajets sur le serveur pour construire le menu ainsi que les liens de chaques zone du menu
 function getTour() {
-
+    //Connexion au serveur
     document.addEventListener('deviceready', function() {
         cordovaHTTP.post(server + "/getNumberOfTours", {
-            username: 'rout-ine',
-            password: 'extranetrout-ine81'
-        }, { Authorization: "access" }, function(response) {
-            // prints 200
+            username: username,
+            password: password
+        }, { Authorization: "OAuth2: token" }, function(response) {
             console.log(response.status);
             try {
+                //Récupèrele nb de tournées standards sur le serveur
                 response = JSON.parse(response.data);
                 // prints test
                 let nbTour = response.numberOfTours;
+                // Ajoute 1 car il y a 1 tournée spéciale (tournée extérieure)
                 nbTour = nbTour + 1;
-                //Menu déroulant !
+                //Menu déroulant ! 
                 let dropdown = $('#dropdown1');
-
+                //Vide le menu
                 dropdown.empty();
 
+                // Crée chaques éléments du menu, le dernier élément étant la tournée extérieure
                 for (let i = 1; i <= nbTour; i++) {
 
                     let link = $('<a href="#!">').text('Tournée' + i);
@@ -392,15 +432,14 @@ function getTour() {
                 console.error("JSON parsing error");
             }
         }, function(response) {
-            // prints 403
+            //Erreur de communication avec le serveur
             alert(response.status);
-            //prints Permission denied 
             alert(JSON.stringify(response.error, null, 2));
         });
     });
 }
 
-//génére le fichier de log
+//Crée un fichier de log contenant "{}" permettant après de compléter avec des objets JSON et que le fichier puisse être traité comme un fichier JSON
 function createLogFile() {
     document.addEventListener('deviceready', function() {
         var Fichier = "log.txt";
@@ -411,11 +450,10 @@ function createLogFile() {
         gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
         gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-        alert('Fichier Log.txt créé');
     });
 }
 
-//GeoJson Layers
+//GeoJson Layers // Chargement du trajet (adresse et itiniéraire)
 function truck() {
 
     reset();
@@ -423,32 +461,44 @@ function truck() {
     L.geoJSON(geojsonFeature, {
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
+                // Utilise le plugin AwesomeNumberMarkers pour les icones des marqueurs, affecte leur index dansl a tournée comme numéro, ainsi que la couleur rouge foncé
                 icon: new L.AwesomeNumberMarkers({
                     number: feature.properties.waypoint_index,
                     markerColor: "darkred"
                 })
             });
         },
+        // Pour chaques marqueurs : fonction onEachFeature() 
         onEachFeature: onEachFeature,
     }).addTo(map);
 
     L.geoJSON(jsonFeatureTrip.geometry, {
         style: {
+            // Couleur du trajet : rouge foncé
             "color": "#8b0000"
         }
     }).addTo(map);
 }
 
+//Concaténation des chaines de caractères
 function addLine(string, line) {
     return string + '<br>' + line;
 }
 
+//Fonction déterminant le comportement de chaques marqueurs WARNING : Lors d'une erreur dans cette fonction, ils ne sont pas affichés 
 function onEachFeature(feature, layer) {
 
     let p = feature.properties;
     let popContent = p.label + (p.special != undefined ? ', ' + p.special : '');
+    let nbBenef = 0;
+    let popContent1 = "";
+    let popContent2 = "";
+    let popContent3 = "";
+    let popContent4 = "";
 
+    //feature.properties correspond aux propriété de l'adresse du marqueur 
     for (let b of feature.properties.beneficiaries) {
+        nbBenef = nbBenef + 1;
         let line = b.name;
         let isAnniversary = false;
         if (b.birthdate != null) {
@@ -460,7 +510,7 @@ function onEachFeature(feature, layer) {
             let years = age / 31557600000
             line += ', ' + Math.floor(years) + ' ans .';
         }
-        if (b.address_additional) {
+        if (b.address_additional != null) {
             line = b.address_additional + ' - ' + line;
         }
         popContent = addLine(popContent, line);
@@ -473,40 +523,78 @@ function onEachFeature(feature, layer) {
         if (b.note) {
             var label = '<u>Note :</u>'
             popContent = addLine(popContent, label);
-            n = '<FONT color="red"><b>' + b.note + '</b></FONT>';
+            n = '<FONT color="red"><b>' + b.note + '</b></FONT><br>';
             popContent = addLine(popContent, n);
-            /*
-                        let div_benef = L.DomUtil.create('div');
-
-                        div_popup.innerHTML = '<ul><li id="inline"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
-                            '<li id="inline"><a href="#" class="cancel"><i class="icon ion-android-cancel"></i></a></li>';
-
-                        div_popup.innerHTML = addLine(popContent, div_popup.innerHTML);
-                        layer.bindPopup(div_popup);
-
-            */
         }
+        if (nbBenef == 1) {
+            popContent1 = popContent;
+        }
+        if (nbBenef == 2) {
+            popContent2 = popContent;
+        }
+        if (nbBenef == 3) {
+            popContent3 = popContent;
+        }
+        if (nbBenef == 4) {
+            popContent4 = popContent;
+        }
+
+        popContent = "";
     }
-
+    /*
+        alert('nbBenef: ' + nbBenef);
+        alert('popContent1: ' + popContent1);
+        alert('popContent2: ' + popContent2);
+        alert('popContent3: ' + popContent3);
+        alert('popContent4: ' + popContent4);
+    */
+    let div_button = L.DomUtil.create('div');
     let div_popup = L.DomUtil.create('div');
-
-    div_popup.innerHTML = '<ul><li class="inline1"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
+    //Création des boutons
+    div_button.innerHTML = '<ul><li class="inline1"><a href="#" class="check"><i class="icon ion-checkmark-circled"></i></a></li>' +
         '<li class="inline2"><a href="#" class="cancel"><i class="icon ion-android-cancel"></i></a></li>' +
         '<input id="msg">' +
         '<center><a href="#" class="form"><i class="icon ion-paper-airplane"></i></a></ul></center>' +
         '<p id="retour"></p>';
 
-    div_popup.innerHTML = addLine(popContent, div_popup.innerHTML);
+    if (nbBenef == 0) {
+        div_popup.innerHTML = addLine(popContent, div_button.innerHTML);
+    }
+    if (nbBenef == 1) {
+        div_popup.innerHTML = addLine(popContent1, div_button.innerHTML);
+    }
+    if (nbBenef == 2) {
+        let tmp1 = addLine(popContent1, div_button.innerHTML);
+        let tmp2 = addLine(popContent2, div_button.innerHTML);
+        div_popup.innerHTML = addLine(tmp1, tmp2);
+    }
+    if (nbBenef == 3) {
+        let tmp1 = addLine(popContent1, div_button.innerHTML);
+        let tmp2 = addLine(popContent2, div_button.innerHTML);
+        div_popup.innerHTML = addLine(tmp1, tmp2);
+        let tmp3 = addLine(popContent3, div_button.innerHTML);
+        div_popup.innerHTML = addLine(div_popup.innerHTML, tmp3);
+    }
+    if (nbBenef == 4) {
+        let tmp1 = addLine(popContent1, div_button.innerHTML);
+        let tmp2 = addLine(popContent2, div_button.innerHTML);
+        div_popup.innerHTML = addLine(tmp1, tmp2);
+        let tmp3 = addLine(popContent3, div_button.innerHTML);
+        div_popup.innerHTML = addLine(div_popup.innerHTML, tmp3);
+        let tmp4 = addLine(popContent4, div_button.innerHTML);
+        div_popup.innerHTML = addLine(div_popup.innerHTML, tmp4);
+    }
+
     layer.bindPopup(div_popup);
-    //si marker coloré -> vert
+
+    //si marker rouge -> vert
+    //Futur envoie de logs pour passage d'un livreur 
     $('a.check', div_popup).on('click', function() {
-        layer.setIcon(new L.AwesomeNumberMarkers({
-            number: feature.properties.waypoint_index,
-            markerColor: "green"
-        }));
+        checkButton();
     });
 
-    //si marker vert -> coloré
+    //si marker vert -> rouge
+    //Envoie de logs annulation du passage ( erreur livreur ou autre)
     $('a.cancel', div_popup).on('click', function() {
         layer.setIcon(new L.AwesomeNumberMarkers({
             number: feature.properties.waypoint_index,
@@ -526,11 +614,12 @@ function onEachFeature(feature, layer) {
             var Texte = new Object();
             Texte.address_id = feature.id;
             Texte.message = x;
-            //Texte.date = dateMsg;
+            Texte.beneficiarie = feature.beneficiaries.name;
             Texte.uuid = device.uuid;
             Texte.tour_number = feature.properties.tour.num;
 
             //Lecture pour réécriture
+            // Objet Json sous forme de dictionnaire : date = clef, others = valeurs (address_id, message, uuid, tour_number)
             readLog(function() {
                 logFile[new Date()] = Texte;
                 alert(JSON.stringify(logFile, null, 2));
@@ -545,7 +634,14 @@ function onEachFeature(feature, layer) {
     });
 }
 
-//Vérification connection
+function checkButton() {
+    layer.setIcon(new L.AwesomeNumberMarkers({
+        number: feature.properties.waypoint_index,
+        markerColor: "green"
+    }));
+}
+
+//Vérification connection 
 function checkConnection() {
 
     document.addEventListener('deviceready', function() {
@@ -567,7 +663,6 @@ function clearLog() {
     });
 }
 
-
 //Lecture d'un fichier adresses
 function readAddresses() {
 
@@ -576,7 +671,7 @@ function readAddresses() {
         window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
             console.dir(f);
         }, failReadAddresses);
-        //This alias is a read-only pointer to the app itself
+
         window.resolveLocalFileSystemURL("file:///storage/emulated/0/tourAddresses.json", gotFileAddresses, failReadAddresses);
     });
 }
@@ -597,8 +692,7 @@ function gotFileAddresses(fileEntry) {
             geojsonFeature = JSON.parse(this.result);
             //document.querySelector("#readFile").innerHTML = this.result;
             alert('Tournée téléchargée sélectionnée.');
-
-
+            //Chargement des fichiers pour initilisation Itinéraire et Marqueurs 
             truck();
         }
 
@@ -617,7 +711,6 @@ function readTrip() {
             console.dir(f);
         }, failReadTrip);
 
-        //This alias is a read-only pointer to the app itself
         window.resolveLocalFileSystemURL("file:///storage/emulated/0/tourTrip.json", gotFileTrip, failReadTrip);
 
     });
@@ -672,14 +765,14 @@ function registerFile() {
 // Téléchargement 2.0 !
 function downloadFile() {
     cordovaHTTP.post(server + "/downloadAddresses", {
-            username: 'rout-ine',
-            password: 'extranetrout-ine81',
+            username: username,
+            password: password,
             num: trajet
         }, { Authorization: "OAuth2: token" }, function(response) {
             // prints 200
             try {
                 geojsonFeature = JSON.parse(response.data);
-                //document.querySelector("#readFile").innerHTML = this.result;
+                // Change le nom  dans le menu si c'est la tournée extérieure ainsi que celui de la pop up de chargement
                 if (trajet == 'Outside') {
                     let numTournee = 'Extérieur Albi';
                     alert('Tournée ' + numTournee + ' sélectionnée.');
@@ -687,7 +780,9 @@ function downloadFile() {
                     let numTournee = trajet + 1;
                     alert('Tournée N°' + numTournee + ' sélectionnée.');
                 }
-                notifySuccess();
+                //Envoie une notification de succès
+                messageNotif = "Succès du téléchargement";
+                notify();
                 document.addEventListener('deviceready', function() {
                     var Fichier = "tourAddresses.json";
                     var Texte = JSON.stringify(geojsonFeature, null, 2);
@@ -704,26 +799,26 @@ function downloadFile() {
             }
         },
         function(response) {
-            // prints 403
             alert(response.status);
-            //prints Permission denied 
             alert(JSON.stringify(response.error, null, 2));
         });
 }
 
-//A terme : écrire variable dans un fichier
+//Téléchargement d'un itinéraire et de ses adresses
 
 function downloadTrip() {
+    //Authentification au serveur, précision du num de la tournée voulue (Outside pour tournée extérieure)
     cordovaHTTP.post(server + "/downloadTrip", {
-            username: 'rout-ine',
-            password: 'extranetrout-ine81',
+            username: username,
+            password: password,
             num: trajet
         }, { Authorization: "OAuth2: token" }, function(response) {
-            // prints 200
             try {
                 jsonFeatureTrip = JSON.parse(response.data);
-                notifySuccess();
+                messageNotif = "Succès du téléchargement";
+                notify();
                 document.addEventListener('deviceready', function() {
+                    //Ecrit le résultat du téléchargement dans un fichier pour l'utilisation hors connexion
                     var Fichier = "tourTrip.json";
                     var Texte = JSON.stringify(jsonFeatureTrip, null, 2);
 
@@ -739,19 +834,18 @@ function downloadTrip() {
             }
         },
         function(response) {
-            // prints 403
             alert(response.status);
-            //prints Permission denied 
             alert(JSON.stringify(response.error, null, 2));
         });
 }
 
-//Réinitialisation carte
+//Réinitialisation carte après décompression archive
 function initMapUnziped() {
-
+    // Supprime l'ancienne map
     map.off();
     map.remove();
 
+    // La remplace par la nouvelle
     map = L.map('map').setView([43.924, 2.1554], 13);
 
     //Layer carte SD
@@ -769,29 +863,24 @@ function unZip() {
     /*
         //Récupération sur la carte SD
         zip.unzip("/storage/sdcard1/Download/Tiles.zip", "/storage/sdcard1/Download", function() {
-            notifyZip();
+            notify();
         });
     */
-    //Récupération Mémoire interne
 
-    let divLoad = document.getElementById("dataLoader");
-    divLoad.style.display = "block";
-
+    //Décompresse l'archive source - cible
     zip.unzip("/storage/emulated/0/Download/Tiles.zip", "/storage/emulated/0/Download", function() {
-        notifyZip();
-        divLoad = document.getElementById("dataLoader");
-        divLoad.style.display = "none";
+        messageNotif = "Archive décompressée avec succès.";
+        notify();
     });
-
-
 }
 
 //Notification
 
-function notifyZip() {
+function notify() {
 
     document.addEventListener('deviceready', function() {
 
+        //Supprime toutes les notifications actives de cette application
         cordova.plugins.notification.local.clearAll();
 
         var date = new Date();
@@ -799,49 +888,16 @@ function notifyZip() {
         cordova.plugins.notification.local.schedule({
             id: 1,
             title: "Offline Routing Notification",
-            message: "Archive décompressée avec succès.",
+            //Message personnalisé en fonction de la fonction qui appelle la notification 
+            message: messageNotif,
             at: date,
         });
 
     });
 }
 
-function notifyError() {
-
-    document.addEventListener('deviceready', function() {
-
-        cordova.plugins.notification.local.clearAll();
-
-        var date = new Date();
-
-        cordova.plugins.notification.local.schedule({
-            id: 2,
-            title: "Offline Routing Notification",
-            message: "Téléchargement échoué.",
-            at: date,
-        });
-
-    });
-}
-
-function notifySuccess() {
-
-    document.addEventListener('deviceready', function() {
-
-        cordova.plugins.notification.local.clearAll(); //efface les notifications actives (de cette application)
-
-        var date = new Date();
-
-        cordova.plugins.notification.local.schedule({
-            id: 3,
-            title: "Offline Routing Notification",
-            message: "Téléchargement réussi.",
-            at: date,
-        });
-    });
-}
-
-//réinitilisa la carte à son état d'origine
+//réinitialise la carte à son état d'origine
+//innutilisée, permet d'afficher la carte stockée dans le dossier img de l'application
 function reset() {
     map.off();
     map.remove();
@@ -857,9 +913,10 @@ function reset() {
     }).addTo(map);
 }
 
-
+//Crée le marqueur de geolocalisation
 function popMarker(lat, lng) {
-    let markerGeo = L.marker([lat, lng]).addTo(map);
+    markerGeo.remove();
+    markerGeo = L.marker([lat, lng]).addTo(map);
 }
 
 //Géolocalisation
@@ -871,10 +928,11 @@ function currentLocation() {
     }
 
     if (navigator.geolocation) {
+        //watchPosition: geolocalisation toutes les 3 secondes
         navigator.geolocation.watchPosition(function(position) {
             //alert('Latitude: ' + position.coords.latitude + '\nLongitude: ' + position.coords.longitude);
             popMarker(position.coords.latitude, position.coords.longitude);
-        }, onError, { timeout: 30000, enableHighAccuracy: true });
+        }, onError, { timeout: 3600000, enableHighAccuracy: true });
 
 
 
