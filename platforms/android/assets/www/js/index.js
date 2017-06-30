@@ -9,7 +9,7 @@ let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier 
 let tpsEnvoi = 30000; //Teps entres chaques envoie du contenu du fichier au serveur si il y a du contenu
 let layer; //Layer des tuiles de la carte
 let map; //Objet map
-let markerGeo; // marker de géolocalisation
+let markerGeo = 1; // marker de géolocalisation
 let trajet; //compteur de trajets ( création du menu )
 let etatInternet; // Etat de la connexion , testé à intervalle régulier
 let messageNotif; // Message d'une notif
@@ -377,43 +377,6 @@ function failReadLog(e) {
     createLogFile();
 }
 
-// Read Log Check passage des livreurs
-function readLogCheck(callback) {
-    document.addEventListener('deviceready', function() {
-
-        window.resolveLocalFileSystemURL(cordova.file.applicationDirectory, function(f) {
-            console.dir(f);
-        }, failReadLogCheck);
-
-        //This alias is a read-only pointer to the app itself
-        window.resolveLocalFileSystemURL("file:///storage/emulated/0/logCheck.txt", gotFileLogCheck, failReadLogCheck);
-    });
-
-
-    function gotFileLogCheck(fileEntry) {
-        fileEntry.file(function(file) {
-            reader = new FileReader();
-
-            reader.onloadend = function(e) {
-                console.log(this.result);
-                logFileCheck = JSON.parse(this.result);
-                // Lis le contenu du fichier, ajoute le nouveau contenu et réécrit le tout dans le fichier (permet l'écriture sans suppression)
-                callback();
-                //document.querySelector("#readFile").innerHTML = this.result;
-            }
-            reader.readAsText(file);
-        });
-    }
-
-}
-
-// Erreur lecture -> généralement causée par la suppresion du fichier de log -> création du fichier lors de l'erreur
-function failReadLogCheck(e) {
-    alert("Erreur de lecture: Création d'un fichier log.txt");
-    clearLogCheck();
-}
-
-
 
 //Récupère le nombre de trajets sur le serveur pour construire le menu ainsi que les liens de chaques zone du menu
 function getTour() {
@@ -578,13 +541,13 @@ function onEachFeature(feature, layer) {
 
         popContent = "";
     }
-
-    alert('nbBenef: ' + nbBenef);
-    alert('popContent1: ' + popContent1);
-    alert('popContent2: ' + popContent2);
-    alert('popContent3: ' + popContent3);
-    alert('popContent4: ' + popContent4);
-
+    /*
+        alert('nbBenef: ' + nbBenef);
+        alert('popContent1: ' + popContent1);
+        alert('popContent2: ' + popContent2);
+        alert('popContent3: ' + popContent3);
+        alert('popContent4: ' + popContent4);
+    */
     let div_button = L.DomUtil.create('div');
     let div_popup = L.DomUtil.create('div');
     //Création des boutons
@@ -627,33 +590,7 @@ function onEachFeature(feature, layer) {
     //si marker rouge -> vert
     //Futur envoie de logs pour passage d'un livreur 
     $('a.check', div_popup).on('click', function() {
-        layer.setIcon(new L.AwesomeNumberMarkers({
-            number: feature.properties.waypoint_index,
-            markerColor: "green"
-        }));
-        document.addEventListener('deviceready', function() {
-            var FichierCheck = "logCheck.txt";
-            //N° de tournée / id de l'adresse / Adresse mac de la tablette / message perso / date et heure
-            //let dateMsg = new Date();
-            var TexteCheck = new Object();
-            TexteCheck.address_id = feature.id;
-            TexteCheck.beneficiarie = feature.beneficiaries.name;
-            TexteCheck.uuid = device.uuid;
-            TexteCheck.tour_number = feature.properties.tour.num;
-
-            //Lecture pour réécriture
-            // Objet Json sous forme de dictionnaire : date = clef, others = valeurs (address_id, message, uuid, tour_number)
-            readLogCheck(function() {
-                logFile[new Date()] = Texte;
-                alert(JSON.stringify(logFile, null, 2));
-
-                fail = function(e) { alert(JSON.stringify(e)); }
-                gotFileWriter = function(writer) { writer.write(JSON.stringify(logFile, null, 2)); };
-                gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
-                gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            });
-        });
+        checkButton();
     });
 
     //si marker vert -> rouge
@@ -697,6 +634,13 @@ function onEachFeature(feature, layer) {
     });
 }
 
+function checkButton() {
+    layer.setIcon(new L.AwesomeNumberMarkers({
+        number: feature.properties.waypoint_index,
+        markerColor: "green"
+    }));
+}
+
 //Vérification connection 
 function checkConnection() {
 
@@ -718,21 +662,6 @@ function clearLog() {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     });
 }
-
-//Clear du fichier logCheck
-function clearLogCheck() {
-    document.addEventListener('deviceready', function() {
-        var Fichier = "logCheck.txt";
-        var Texte = "{}";
-
-        fail = function(e) { alert(JSON.stringify(e)); }
-        gotFileWriter = function(writer) { writer.write(Texte); };
-        gotFileEntry = function(fileEntry) { fileEntry.createWriter(gotFileWriter, fail); };
-        gotFS = function(fileSystem) { fileSystem.root.getFile(Fichier, { create: true }, gotFileEntry, fail); };
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-    });
-}
-
 
 //Lecture d'un fichier adresses
 function readAddresses() {
@@ -986,7 +915,9 @@ function reset() {
 
 //Crée le marqueur de geolocalisation
 function popMarker(lat, lng) {
-    markerGeo.remove();
+    if (markerGeo != 1) {
+        markerGeo.remove();
+    }
     markerGeo = L.marker([lat, lng]).addTo(map);
 }
 
@@ -1003,7 +934,7 @@ function currentLocation() {
         navigator.geolocation.watchPosition(function(position) {
             //alert('Latitude: ' + position.coords.latitude + '\nLongitude: ' + position.coords.longitude);
             popMarker(position.coords.latitude, position.coords.longitude);
-        }, onError, { timeout: 3600000, enableHighAccuracy: true });
+        }, onError, { maximumAge: 3000, timeout: 3600000, enableHighAccuracy: true });
 
 
 

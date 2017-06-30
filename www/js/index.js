@@ -9,7 +9,7 @@ let tpsNotif = 5000; // Temps entre chaques vérification du contenu du fichier 
 let tpsEnvoi = 30000; //Teps entres chaques envoie du contenu du fichier au serveur si il y a du contenu
 let layer; //Layer des tuiles de la carte
 let map; //Objet map
-let markerGeo; // marker de géolocalisation
+let markerGeo = 1; // marker de géolocalisation
 let trajet; //compteur de trajets ( création du menu )
 let etatInternet; // Etat de la connexion , testé à intervalle régulier
 let messageNotif; // Message d'une notif
@@ -915,7 +915,9 @@ function reset() {
 
 //Crée le marqueur de geolocalisation
 function popMarker(lat, lng) {
-    markerGeo.remove();
+    if (markerGeo != 1) {
+        markerGeo.remove();
+    }
     markerGeo = L.marker([lat, lng]).addTo(map);
 }
 
@@ -932,7 +934,7 @@ function currentLocation() {
         navigator.geolocation.watchPosition(function(position) {
             //alert('Latitude: ' + position.coords.latitude + '\nLongitude: ' + position.coords.longitude);
             popMarker(position.coords.latitude, position.coords.longitude);
-        }, onError, { timeout: 3600000, enableHighAccuracy: true });
+        }, onError, { maximumAge: 3000, timeout: 3600000, enableHighAccuracy: true });
 
 
 
